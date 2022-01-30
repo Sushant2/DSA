@@ -79,6 +79,10 @@ public class reverseNodesLL {
         }
 
         public void reverseNodesLL() {
+            // adding base case
+            if (head == null || head.next == null) {
+                return;
+            }
             Node prev = null;
             Node curr = head;
             while (curr != null) {
