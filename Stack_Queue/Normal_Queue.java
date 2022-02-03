@@ -3,6 +3,7 @@ import java.util.*;
 
 public class Normal_Queue {
     public static void main(String[] args) throws Exception {
+        // TODO: Queue using java collection
         // ! we don't declare/initialise queue like this cos, queue is an interface &
         // interfaces can't be instantiated
         // Queue<Integer> q = new Queue<>();
