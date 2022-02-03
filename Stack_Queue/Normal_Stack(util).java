@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Normal_Stack {
     public static void main(String[] args) throws Exception {
-        // ! Stack Using Java Collections
+        // TODO Stack Using Java Collections
         Stack<Integer> stk = new Stack<>();
         // initialised an empty stack
         if (stk.empty())
