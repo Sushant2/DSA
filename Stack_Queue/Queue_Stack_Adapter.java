@@ -1,3 +1,6 @@
+//! PUSH EFFICIENT - O(1)
+//! POP/TOP - O(n)
+
 import java.io.*;
 import java.util.*;
 
