@@ -1,4 +1,5 @@
-//! PUSH EFFICIENT - 
+//! Add EFFICIENT - O(1)
+//! Remove/Peek - O(n)
 
 import java.io.*;
 import java.util.*;
