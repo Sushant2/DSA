@@ -61,6 +61,14 @@ public class displayLL {
                 System.out.println(curr.data);
             }
         }
+
+        public void displayLLReverse(Node node) {
+            // base case
+            if (node == null)
+                return;
+            displayLLReverse(node.next);
+            System.out.print(node.data + " ");
+        }
     }
 
     public static void testList(LinkedList list) {
@@ -91,6 +99,8 @@ public class displayLL {
                 list.displayLLwhile();
             } else if (str.startsWith("displayLLfor")) {
                 list.displayLLfor();
+            } else if (str.startsWith("displayLLReverse")) {
+                list.displayLLReverse(list.head);
             } else {
                 System.out.println("Write correct input format!");
             }
