@@ -213,7 +213,7 @@ public class ReverseLL {
             }
         }
 
-        // ! Reverse linkedlist - recursive method
+        // ! Reverse linkedlist - Data recursive
         public Node reverseLLrecursive(Node left, Node right, int counter) {
             // base
             if (left == null) {
@@ -234,6 +234,8 @@ public class ReverseLL {
             reverseLLrecursive(left, right, 0);
         }
 
+        // ! Reverse Linkedlist - Pointer/Node iterative
+
         public void reverseNode1() {
             Node prev = null, curr = head;
             while (curr != null) {
@@ -246,7 +248,27 @@ public class ReverseLL {
             head = tail;
             tail = temp;
         }
+        // ! Reverse Linkedlist - Pointer/Node recursive
 
+        private void reverseLLHelper(Node node) {
+            // base case
+            if (node == null || node.next == null) {
+                return;
+            }
+            reverseLLHelper(node.next);
+            node.next.next = node;
+        }
+
+        public void reverseNode2() {
+            Node curr = head;
+            reverseLLHelper(curr);
+            // swapping of head & tail
+            Node temp = head;
+            head = tail;
+            tail = temp;
+            // at last made tail points to null
+            tail.next = null;
+        }
     }
 
     public static void testList(LinkedList list) {
@@ -301,6 +323,8 @@ public class ReverseLL {
                 list.reverseData2();
             } else if (str.startsWith("reverseNode1")) {
                 list.reverseNode1();
+            } else if (str.startsWith("reverseNode2")) {
+                list.reverseNode2();
             } else {
                 System.out.println("Write correct input format!");
             }
