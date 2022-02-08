@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class reverseLL {
+public class ReverseLL {
     public static class Node {
         int data;
         Node next;
@@ -162,6 +162,77 @@ public class reverseLL {
             }
             System.out.println();
         }
+
+        // ? Reversing Linked list - Data iterative
+        public void swap(Node left, Node right) {
+            int leftData = left.data;
+            left.data = right.data;
+            right.data = leftData;
+        }
+
+        public Node getNFirst() {
+            if (size == 0) {
+                System.out.println("List is empty");
+            }
+            return head;
+        }
+
+        public Node getNLast() {
+            if (size == 0) {
+                System.out.println("List is empty!");
+            }
+            return tail;
+        }
+
+        public Node getNAt(int idx) {
+            if (size == 0) {
+                System.out.println("List is empty!");
+            }
+            if (idx < 0 || idx >= size) {
+                System.out.println("Invalid arguments!");
+            }
+            if (idx == 0)
+                getNFirst();
+            if (idx == size - 1)
+                getNLast();
+            Node curr = head;
+            for (int i = 0; i < idx; i++) {
+                curr = curr.next;
+            }
+            return curr;
+        }
+
+        public void reverseData1() {
+            int left = 0, right = size - 1;
+            while (left < right) {
+                Node leftN = getNAt(left);
+                Node rightN = getNAt(right);
+                swap(leftN, rightN);
+                left++;
+                right--;
+            }
+        }
+
+        // ? Reverse linkedlist - recursive method
+        public Node reverseLLrecursive(Node left, Node right, int counter) {
+            // base
+            if (left == null) {
+                return right;
+            }
+            // left update in preorder
+            right = reverseLLrecursive(left.next, right, counter + 1);
+            // swapping in upperhalf/lower half
+            if (counter < size / 2) {
+                swap(left, right);
+            }
+            right = right.next;
+            return right;
+        }
+
+        public void reverseData2() {
+            Node left = head, right = head;
+            reverseLLrecursive(left, right, 0);
+        }
     }
 
     public static void testList(LinkedList list) {
@@ -188,16 +259,38 @@ public class reverseLL {
             } else if (str.startsWith("addFirst")) {
                 int val = Integer.parseInt(str.split(" ")[1]);
                 list.addFirst(val);
-            }else if(str.startsWith("add"))
-             else if (str.startsWith("size")) {
+            } else if (str.startsWith("addAt")) {
+                int val = Integer.parseInt(str.split(" ")[1]);
+                int idx = Integer.parseInt(str.split(" ")[2]);
+                list.addAt(val, idx);
+            } else if (str.startsWith("removeFirst")) {
+                list.removeFirst();
+            } else if (str.startsWith("removeLast")) {
+                list.removeLast();
+            } else if (str.startsWith("removeAt")) {
+                int idx = Integer.parseInt(str.split(" ")[1]);
+                list.removeAt(idx);
+            } else if (str.startsWith("getFirst")) {
+                System.out.println(list.getFirst());
+            } else if (str.startsWith("getLast")) {
+                System.out.println(list.getLast());
+            } else if (str.startsWith("getAt")) {
+                int idx = Integer.parseInt(str.split(" ")[1]);
+                System.out.println(list.getAt(idx));
+            } else if (str.startsWith("size")) {
                 list.size();
-            } else if (str.startsWith("reverseDataLL")) {
-                list.reverseDataLL();
+            } else if (str.startsWith("display")) {
+                list.display();
+            } else if (str.startsWith("reverseData1")) {
+                list.reverseData1();
+            } else if (str.startsWith("reverseData2")) {
+                list.reverseData2();
             } else {
                 System.out.println("Write correct input format!");
             }
             str = br.readLine();
         }
+
         testList(list);
 
     }
