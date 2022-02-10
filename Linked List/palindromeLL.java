@@ -197,7 +197,9 @@ public class palindromeLL {
             head = tail;
             tail = temp;
         }
+        //!brute force - reverse the list & store it in temp array & compare both lists!
 
+        //! optimised approach - using middle & reverse only the second half & compare w/o extra space
         public Node reverse(Node head) {
             Node prev = null, curr = head;
             while (curr != null) {
