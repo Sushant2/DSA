@@ -50,6 +50,54 @@ public class middleOfLL {
             size++;
         }
 
+        // ! Brute force appraoch - 2traversal(not a good practice)
+        // ?1. calculate size of LL(if not given in online platforms
+        public int getFirst() {
+            if (size == 0) {
+                System.out.println("List is empty!");
+                return -1;
+            }
+            return head.data;
+        }
+
+        public int getLast() {
+            if (size == 0) {
+                System.out.println("List is empty!");
+                return -1;
+            }
+            return tail.data;
+        }
+
+        public int getAt(int idx) {
+            if (size == 0) {
+                System.out.println("List is empty!");
+                return -1;
+            }
+            if (idx < 0 || idx >= size) {
+                System.out.println("Invalid Arguments!");
+                return -1;
+            }
+            if (idx == 0)
+                return getFirst();
+            if (idx == size - 1)
+                return getLast();
+            Node curr = head;
+            for (int i = 0; i < idx; i++) {
+                curr = curr.next;
+            }
+            return curr.data;
+        }
+
+        public int midLLBrute() {
+            int count = 0;
+            for (Node curr = head; curr != null; curr = curr.next) {
+                count++;
+            }
+            System.out.println("Size using count: " + count);
+            return getAt(count / 2);
+        }
+
+        // ! Better/Optimised approach(2ptrs/hare&tortoise/slow&fast) - O(n)
         public int midOfList() {
             Node slow = head, fast = head;
             // check for odd/even
@@ -93,6 +141,8 @@ public class middleOfLL {
                 list.display();
             } else if (str.startsWith("midOfList")) {
                 System.out.println(list.midOfList());
+            } else if (str.startsWith("midLLBrute")) {
+                System.out.println(list.midLLBrute());
             } else {
                 System.out.println("Write correct input format!");
             }
