@@ -5,18 +5,15 @@ public class ngetoright {
     // ! BRUTE FORCE - O(n^2)
     public static int[] ngeToRightBrute(int[] arr) {
         int[] nge = new int[arr.length];
-        boolean flag = false;
+        Arrays.fill(nge, -1);
         for (int i = 0; i < arr.length; i++) {
             int curr = arr[i];
             for (int j = i; j < arr.length; j++) {
                 if (arr[j] > curr) {
                     nge[i] = arr[j];
-                    flag = true;
                     break;
                 }
             }
-            if (!flag)
-                nge[i] = -1;
         }
         return nge;
     }
@@ -57,7 +54,7 @@ public class ngetoright {
         for (int i = 0; i < n; i++) {
             a[i] = Integer.parseInt(br.readLine());
         }
-        int[] nge = ngeToRight1(a);
+        int[] nge = ngeToRightBrute(a);
         display(nge);
     }
 }
