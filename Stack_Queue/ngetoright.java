@@ -49,7 +49,7 @@ public class ngetoright {
         Stack<Integer> stk = new Stack<>();
         for (int i = arr.length - 1; i >= 0; i--) {
             // pop smaller/equal elements to right(in the stack)
-            while (stk.size() > 0 && arr[i] >= stk.peek()) {
+            while (stk.size() > 0 && arr[i] >= arr[stk.peek()]) {
                 stk.pop();
             }
             if (stk.size() > 0) {
@@ -75,7 +75,7 @@ public class ngetoright {
         for (int i = 0; i < n; i++) {
             a[i] = Integer.parseInt(br.readLine());
         }
-        int[] nge = ngeToRightBrute(a);
+        int[] nge = ngeToRight2(a);
         display(nge);
     }
 }
