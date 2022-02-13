@@ -39,6 +39,27 @@ public class ngetoright {
         return nge;
     }
 
+    // ! using 2nd approach - right to left - O(n)
+    // ? - traverse from right to left
+    // ? - pop stk top till - if arr[i]>=stk.peek()
+    // ? - push ourselves - as we can be ans of someonelelse
+    public static int[] ngeToRight2(int[] arr) {
+        int[] nge = new int[arr.length];
+        Arrays.fill(nge, -1);
+        Stack<Integer> stk = new Stack<>();
+        for (int i = arr.length - 1; i >= 0; i--) {
+            // pop smaller/equal elements to right(in the stack)
+            while (stk.size() > 0 && arr[i] >= stk.peek()) {
+                stk.pop();
+            }
+            if (stk.size() > 0) {
+                nge[i] = arr[stk.peek()];
+            }
+            stk.push(i);
+        }
+        return nge;
+    }
+
     public static void display(int[] arr) {
         StringBuilder sb = new StringBuilder();
         for (int val : arr) {
