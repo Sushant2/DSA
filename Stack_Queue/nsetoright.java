@@ -19,6 +19,11 @@ public class nsetoright {
         return nser;
     }
 
+    //! approach - O(n)
+    //? traverse from right to left
+    //? pop those ele, who are greater then you
+    //? after popping, stk.peek() is ur answer
+    //? push urself so that anyother ele be you answer
     public static int[] nsetoright2(int[] arr) {
         int[] nser = new int[arr.length];
         Arrays.fill(nser, arr.length);
