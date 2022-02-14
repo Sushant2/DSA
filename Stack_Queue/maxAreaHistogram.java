@@ -2,6 +2,12 @@ import java.io.*;
 import java.util.*;
 
 public class maxAreaHistogram {
+    //! Approach - O(n)
+    //? for each n every ele find it's nser, & nsel(cos we can find the max area covered by that ele/refernce)
+    //? nextsmallertoleft, nextsmaller to right
+    //? area = length*height i.e, 
+        //? length = nser[i]-nsel[i]-1 //-1 as both/[nser[i],nsel[i]] are inclusive
+    //? so find max area of all ele & return maxArea of histogram
     public static int[] nseright(int[] arr) {
         int[] nser = new int[arr.length];
         Arrays.fill(nser, arr.length);
