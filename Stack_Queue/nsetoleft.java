@@ -22,6 +22,22 @@ public class nsetoleft {
         }
         return nsel;
     }
+    //! approach - O(n)
+    //? traverse from right to left
+    //? pop those who are larger then you/arr[i], & u become answer of those popped ele
+    //? push youself as, you want your answer
+    public static int[] nsetoleft2(int[] arr) {
+        int[] nsel = new int[arr.length];
+        Arrays.fill(nsel, -1);
+        Stack<Integer> stk = new Stack<>();
+        for (int i = arr.length - 1; i >= 0; i--) {
+            while (stk.size() > 0 && arr[stk.peek()] > arr[i]) {
+                nsel[stk.pop()] = i;
+            }
+            stk.push(i);
+        }
+        return nsel;
+    }
 
     public static void display(int[] arr) {
         StringBuilder str = new StringBuilder();
