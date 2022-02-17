@@ -49,6 +49,28 @@ public class constructATree {
         return root;
     }
 
+    public static void display(Node node) {
+        // think in terms of recursion - faith, expectation & meeting expec
+        // faith - tu apna poora kaam krle/subtree print karale
+        // meetng expec - baaki kaam mein apna kr lunga
+        // ! corner case(not base case) - if root node mein null pda hain to
+        if (node == null) {
+            // if tree is not present,no nodes
+            return;
+        }
+        // ! Node pre
+        System.out.print(node.data + " -> ");
+        // apne children ko print krlo
+        for (Node children : node.children) {
+            System.out.print(children.data + ", ");
+        }
+        System.out.println(".");
+        // faith
+        for (Node children : node.children) {
+            display(children);
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -58,6 +80,6 @@ public class constructATree {
             arr[i] = Integer.parseInt(values[i]);
         }
         Node root = construct(arr);
-        // display(root);
+        display(root);
     }
 }
