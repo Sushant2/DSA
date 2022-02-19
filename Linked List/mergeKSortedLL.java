@@ -80,7 +80,7 @@ public record mergeKSortedLL() {
         return idx;
     }
 
-    public static Node mergeKLists(Node[] lists) {
+    public static Node mergeKLists1(Node[] lists) {
         if (lists.length == 0)
             return null;
         // create dummy node
@@ -95,6 +95,54 @@ public record mergeKSortedLL() {
             tail = tail.next;
         }
         return dummy.next;
+    }
+
+    // ! Optimised - O(k*n*log(k))
+    // ? using divide & conquere approach with merge 2 sorted list technique
+
+    public static Node merge2SortedLL(Node head1, Node head2) {
+        if (head1 == null)
+            return head2;
+        if (head2 == null)
+            return head1;
+
+        Node dummy = new Node(-1);
+        Node head = dummy, tail = dummy;
+
+        while (head1 != null && head2 != null) {
+            if (head1.data < head2.data) {
+                tail.next = head1;
+                head1 = head1.next;
+            } else {
+                tail.next = head2;
+                head2 = head2.next;
+            }
+            tail = tail.next;
+        }
+        if (head1 != null)
+            tail.next = head1;
+        else
+            tail.next = head2;
+
+        return dummy.next;
+    }
+
+    public static Node helper(Node[] lists, int left, int right) {
+        if (left > right)
+            return null;
+        if (left == right)
+            return lists[left];
+        int mid = (left + right) / 2;
+        Node l1 = helper(lists, left, mid);
+        Node l2 = helper(lists, mid + 1, right);
+        return merge2SortedLL(l1, l2);
+    }
+
+    public static Node mergeKLists2(Node[] lists) {
+        // edge case - when 0 LL
+        if (lists.length == 0)
+            return null;
+        return helper(lists, 0, lists.length - 1);
     }
 
     public static Node createList(int size) {
@@ -114,7 +162,9 @@ public record mergeKSortedLL() {
             int m = scn.nextInt();
             list[i] = createList(m);
         }
-        Node head = mergeKLists(list);
+        // Node head = mergeKLists1(list);
+        Node head = mergeKLists2(list);
+
         displayList(head);
     }
 }
