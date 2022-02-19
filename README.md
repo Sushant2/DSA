@@ -1,10 +1,10 @@
 # Data Structures And Algorithms
 
-==Level 1==
+> ## Level-1
 
 - [ ] Recursion
-  - [ ] Intro
-  - [ ] inArrays
+  - [x] Intro
+  - [x] inArrays
   - [ ] getArraylist
   - [ ] printArraylist
   - [ ] Backtracking
