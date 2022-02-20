@@ -89,11 +89,11 @@ public class subtract2LL {
         while (l2.next != null && l2.data == 0)
             l2 = l2.next;
 
-        // find larger one list
+        // find larger list
         if (findLarger(l1, l2) == false) {
             Node temp = l1;
-            l2 = l1;
-            l1 = temp;
+            l1 = l2;
+            l2 = temp;
         }
 
         l1 = reverse(l1);
