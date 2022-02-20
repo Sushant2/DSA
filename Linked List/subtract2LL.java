@@ -48,7 +48,7 @@ public class subtract2LL {
             l1 = l1.next;
         }
         while (l2 != null) {
-            count1++;
+            count2++;
             l2 = l2.next;
         }
         if (count1 > count2) {
@@ -58,7 +58,7 @@ public class subtract2LL {
         }
         // if size of both lists are equal
         // compare ones, tens, hundreds
-        while (t1 != null || t2 != null) {
+        while (t1 != null && t2 != null) {
             if (t1.data > t2.data) {
                 return true;
             } else if (t1.data < t2.data) {
@@ -118,7 +118,8 @@ public class subtract2LL {
             tail = temp;
             if (l1 != null) {
                 l1 = l1.next;
-            } else {
+            }
+            if (l2 != null) {
                 l2 = l2.next;
             }
         }
