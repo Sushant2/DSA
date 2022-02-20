@@ -106,17 +106,27 @@ public class subtract2LL {
         while (l1 != null || l2 != null) {
             int d1 = (l1 == null) ? 0 : l1.data;
             int d2 = (l2 == null) ? 0 : l2.data;
-            int diff = d1-d2+borrow;
-            if(diff<0){
+            int diff = d1 - d2 + borrow;
+            if (diff < 0) {
                 diff += 10;
                 borrow = -1;
-            }
-            else{
+            } else {
                 borrow = 0;
             }
-            
-
+            Node temp = new Node(diff);
+            tail.next = temp;
+            tail = temp;
+            if (l1 != null) {
+                l1 = l1.next;
+            } else {
+                l2 = l2.next;
+            }
         }
+        dummy = reverse(dummy.next);
+        while (dummy.next != null && dummy.data == 0) {
+            dummy = dummy.next;
+        }
+        return dummy;
     }
 
     public static void main(String[] args) throws Exception {
@@ -135,5 +145,6 @@ public class subtract2LL {
             l2.addLast(Integer.parseInt(values2[i]));
         }
         Node subNode = subtractLL(l1.head, l2.head);
+        display(subNode);
     }
 }
