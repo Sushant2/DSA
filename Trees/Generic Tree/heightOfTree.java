@@ -64,6 +64,7 @@ public class heightOfTree {
         }
         Node root = construct(arr);
         display(root);
-        System.out.println("Height of tree: " + heightTree(root));
+        System.out.println("Height(Node) of tree: " + heightTree(root));
+        System.out.println("Height(Edge) of tree: " + heightTree(root));
     }
 }
