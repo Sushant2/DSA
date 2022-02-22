@@ -44,6 +44,19 @@ public class mirrorOfTree {
     // ! while mirroring a genric tree, it does't matter we do our work/meeting
     // expec in pre or post order,the answer is gonna be same
 
+    // ?our own reverse function instead of using collections.reverse
+    public static void reverse(Node node) {
+        int i = 0, j = node.children.size() - 1;
+        while (i < j) {
+            Node left = node.children.get(i);
+            Node right = node.children.get(j);
+            node.children.set(i, right);
+            node.children.set(j, left);
+            i++;
+            j--;
+        }
+    }
+
     // !post order
     public static void mirror_post(Node node) {
         if (node == null)
@@ -51,7 +64,8 @@ public class mirrorOfTree {
         for (Node child : node.children) {
             mirror_post(child);
         }
-        Collections.reverse(node.children);
+        // Collections.reverse(node.children);
+        reverse(node);
     }
 
     // !pre order
@@ -59,7 +73,8 @@ public class mirrorOfTree {
         if (node == null) {
             return;
         }
-        Collections.reverse(node.children);
+        // Collections.reverse(node.children);
+        reverse(node);
         for (Node child : node.children) {
             mirror_pre(child);
         }
