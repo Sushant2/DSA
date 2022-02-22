@@ -49,7 +49,8 @@ public class removeLeafNodes {
     // also, which were nonleaf at first or it'll also delete non leaf nodes
 
     // ? So only do in preorder
-    public static void removeLeafs(Node node) {
+    // !using loop in reverse - will not skip any node while deleting
+    public static void removeLeafs1(Node node) {
         if (node == null)
             return;
         // we are deleting leaf nodes in preorder
@@ -63,7 +64,28 @@ public class removeLeafNodes {
             // we have removed the edge linking b/w the leaf node & it's parent
         }
         for (Node child : node.children) {
-            removeLeafs(child);
+            removeLeafs1(child);
+        }
+    }
+
+    // ! using loop in straight manner - but will skip nodes after removing - so to
+    // not to skip, we'll do "i--" when any nodes gets removed
+    public static void removeLeafs2(Node node) {
+        if (node == null)
+            return;
+        // we are deleting leaf nodes in preorder
+        for (int i = 0; i < node.children.size(); i++) {
+            Node child = node.children.get(i);
+            if (child.children.size() == 0) {
+                // my child is leaf node
+                node.children.remove(i);
+                i--;
+            }
+            // remove that child node from my children arraylist
+            // we have removed the edge linking b/w the leaf node & it's parent
+        }
+        for (Node child : node.children) {
+            removeLeafs2(child);
         }
     }
 
@@ -78,7 +100,7 @@ public class removeLeafNodes {
         Node root = construct(arr);
         System.out.println("Original Tree: ");
         display(root);
-        removeLeafs(root);
+        removeLeafs2(root);
         System.out.println("Tree after removing leaf nodes: ");
         display(root);
     }
