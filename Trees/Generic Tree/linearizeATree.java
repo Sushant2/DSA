@@ -55,11 +55,11 @@ public class linearizeATree {
         return node;
     }
 
-    public static void linearize(Node node) {
+    public static void linearize1(Node node) {
         if (node == null)
             return;
         for (Node child : node.children) {
-            linearize(child);
+            linearize1(child);
         }
         for (int i = node.children.size() - 1; i > 0; i--) {
             Node rightChild = node.children.get(i);
@@ -67,6 +67,24 @@ public class linearizeATree {
             leftChildTail.children.add(rightChild);
             node.children.remove(i);
         }
+    }
+
+    public static Node linearize2(Node node) {
+        if (node == null)
+            return null;
+        ArrayList<Node> tails = new ArrayList<>();
+        for (Node child : node.children) {
+            tails.add(linearize2(child));
+        }
+        for (int i = node.children.size() - 1; i > 0; i--) {
+            Node rightChild = node.children.get(i);
+            Node leftChildTail = tails.get(i - 1);
+            leftChildTail.children.add(rightChild);
+            node.children.remove(i);
+        }
+        if (tails.size() == 0)
+            return node;
+        return tails.get(tails.size() - 1);
     }
 
     public static void main(String[] args) throws Exception {
@@ -80,7 +98,7 @@ public class linearizeATree {
         Node root = construct(arr);
         System.out.println("Tree before linearization: ");
         display(root);
-        linearize(root);
+        linearize2(root);
         System.out.println("Tree after linearization: ");
         display(root);
 
