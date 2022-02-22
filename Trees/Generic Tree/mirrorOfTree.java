@@ -41,15 +41,28 @@ public class mirrorOfTree {
             display(child);
         }
     }
+    // ! while mirroring a genric tree, it does't matter we do our work/meeting
+    // expec in pre or post order,the answer is gonna be same
 
     // !post order
-    public static void mirror(Node node) {
+    public static void mirror_post(Node node) {
         if (node == null)
             return;
         for (Node child : node.children) {
-            mirror(child);
+            mirror_post(child);
         }
         Collections.reverse(node.children);
+    }
+
+    // !pre order
+    public static void mirror_pre(Node node) {
+        if (node == null) {
+            return;
+        }
+        Collections.reverse(node.children);
+        for (Node child : node.children) {
+            mirror_pre(child);
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -63,7 +76,7 @@ public class mirrorOfTree {
         Node root = construct(arr);
         System.out.println("Before mirror: ");
         display(root);
-        mirror(root);
+        mirror_pre(root);
         System.out.println("After mirror: ");
         display(root);
     }
