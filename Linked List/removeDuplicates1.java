@@ -1,3 +1,5 @@
+//? Delete all duplicates such that each element appears only once
+
 import java.util.*;
 import java.io.*;
 
@@ -42,7 +44,7 @@ public class removeDuplicates1 {
     }
 
     // ! In O(n) - time complexity
-    public static void removeDuplicates(Node head) {
+    public static Node removeDuplicates(Node head) {
         Node dummy = new Node(-1);
         Node tail = dummy;
         while (head != null) {
@@ -53,7 +55,8 @@ public class removeDuplicates1 {
             head = head.next;
         }
         tail.next = null;
-        head = dummy.next;
+        // head = dummy.next;
+        return dummy.next;
     }
 
     public static void main(String[] args) throws Exception {
@@ -64,7 +67,7 @@ public class removeDuplicates1 {
         for (int i = 0; i < n; i++) {
             list.addLast(Integer.parseInt(values[i]));
         }
-        removeDuplicates(list.head);
-        display(list.head);
+        Node node = removeDuplicates(list.head);
+        display(node);
     }
 }
