@@ -8,7 +8,7 @@
   - [ ] getArraylist
   - [ ] printArraylist
   - [ ] Backtracking
-- [ ] Linked list
+- [x] Linked list
 - [ ] Stack & Queue
 - [ ] Trees
   - [ ] Generic Tree
