@@ -27,30 +27,41 @@ public class postfixEval_conv {
     }
 
     // ! perform postfix
-    public static void performPost(Stack<String> postfix, char op) {
-        String postfixB = postfix.pop();
-        String postfixA = postfix.pop();
-        postfix.push(op + postfixA + postfixB);
+    public static void performPost(Stack<String> prefix, char op) {
+        String prefixB = prefix.pop();
+        String prefixA = prefix.pop();
+        prefix.push(op + prefixA + prefixB);
+    }
+
+    public static void performInfix(Stack<String> infix, char op) {
+        String infixB = infix.pop();
+        String infixA = infix.pop();
+        infix.push("(" + infixA + op + infixB + ")");
     }
 
     public static void evalnconv(String str) {
-        // ? 2stacks - evaluation & postfix
+        // ? 3stacks - evaluation, postfix * infix
         Stack<Integer> eval = new Stack<>();
-        Stack<String> postfix = new Stack<>();
+        Stack<String> prefix = new Stack<>();
+        Stack<String> infix = new Stack<>();
+
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
             if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
                 int b = eval.pop();
                 int a = eval.pop();
                 eval.push(performEval(a, b, ch));
-                performPost(postfix, ch);
+                performPost(prefix, ch);
+                performInfix(infix, ch);
             } else {
                 eval.push(ch - '0');
-                postfix.push(ch + "");
+                prefix.push(ch + "");
+                infix.push(ch + "");
             }
         }
         System.out.println("Postfix evaluation: " + eval.peek());
-        System.out.println("Postfix to prefix conversion: " + postfix.peek());
+        System.out.println("Postfix to prefix conversion: " + prefix.peek());
+        System.out.println("Postfix to infix conversion: " + infix.peek());
     }
 
     public static void main(String[] args) throws Exception {
