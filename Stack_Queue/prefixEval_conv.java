@@ -1,7 +1,5 @@
 import java.util.*;
 
-import javax.crypto.interfaces.PBEKey;
-
 import java.io.*;
 
 public class prefixEval_conv {
@@ -23,8 +21,15 @@ public class prefixEval_conv {
         postfix.push(postfixA + postfixB + op);
     }
 
+    public static void performInfix(Stack<String> infix, char op) {
+        String infixA = infix.pop();
+        String infixB = infix.pop();
+        infix.push("(" + infixA + op + infixB + ")");
+    }
+
     public static void prefixEvalConv(String str) {
         Stack<String> postfix = new Stack<>();
+        Stack<String> infix = new Stack<>();
         Stack<Integer> eval = new Stack<>();
         for (int i = str.length() - 1; i >= 0; i--) {
             char ch = str.charAt(i);
@@ -33,14 +38,17 @@ public class prefixEval_conv {
                 int b = eval.pop();
                 eval.push(preformEval(a, b, ch));
                 performPre(postfix, ch);
+                performInfix(infix, ch);
             } else {
                 eval.push(ch - '0');
                 postfix.push(ch + "");
+                infix.push(ch + "");
             }
         }
 
         System.out.println("Prefix evaluation: " + eval.peek());
         System.out.println("Prefix to postfix conversion: " + postfix.peek());
+        System.out.println("Prefix to infix conversion: " + infix.peek());
     }
 
     public static void main(String[] args) throws Exception {
