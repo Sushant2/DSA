@@ -16,3 +16,8 @@
 - [ ] Stack & Queue
 - [ ] Trees
   - [ ] Generic Tree
+  - [ ] Binary Tree
+  - [ ] Binary Search Tree
+- [ ] Graphs
+- [ ] Hashmap And Heap
+- [ ] Dynamic Programming And Grredy
