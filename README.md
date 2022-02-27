@@ -2,6 +2,10 @@
 
 > ## Level-1
 
+- [ ] Patterns
+- [ ] Functions And Arrays
+- [ ] 2D Arrays
+- [ ] String, Dynamic String and Dynamic Array
 - [ ] Recursion
   - [x] Intro
   - [x] inArrays
