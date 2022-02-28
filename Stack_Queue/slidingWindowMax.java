@@ -7,11 +7,31 @@ public class slidingWindowMax {
 
         // resultant array
         int[] res = new int[arr.length - k + 1];
-        // deque - doubly ended queue
+        int idx = 0; // for resultant array
+        // deque - doubly ended queue to store indexes
         Deque<Integer> dq = new ArrayDeque<>();
-        
+        for (int i = 0; i < arr.length; i++) {
+            // remove first - if dq front excluded from the window
+            if (dq.size() > 0 && dq.getFirst() <= i - k) {
+                dq.removeFirst();
+            }
 
-        return null;
+            // remove last - if rear is smaller than our current ele
+            while (dq.size() > 0 && arr[dq.getLast()] <= arr[i]) {
+                dq.removeLast();
+            }
+
+            // add last - we can be ans of our curr window or upcoming window
+            dq.addLast(i);
+
+            // add widnow maximum(dq.getFirst()) in res array - start adding after
+            // processing first window
+            if (i >= k - 1)
+                res[idx++] = arr[dq.getFirst()];
+
+        }
+
+        return res;
     }
 
     public static void main(String[] args) throws Exception {
@@ -24,5 +44,8 @@ public class slidingWindowMax {
         }
         int window = Integer.parseInt(br.readLine());
         int[] res = windowMaxArr(arr, window);
+        System.out.println("Maximum of windows are: ");
+        for (int x : res)
+            System.out.print(x + " ");
     }
 }
