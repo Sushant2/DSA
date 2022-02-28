@@ -3,6 +3,20 @@ import java.io.*;
 
 public class slidingWindowMax {
 
+    // ! brute force - O(n*k) time
+    public static int[] windowMaxArrBrute(int[] arr, int k) {
+        int[] res = new int[arr.length - k + 1];
+        for (int i = 0; i < arr.length - k + 1; i++) {
+            int currMax = Integer.MIN_VALUE;
+            for (int j = i; j < i + k; j++) {
+                currMax = Math.max(currMax, arr[j]);
+            }
+            res[i] = currMax;
+        }
+        return res;
+    }
+
+    // ! most optimised using deque - O(n) time & O(k) space
     public static int[] windowMaxArr(int[] arr, int k) {
 
         // resultant array
@@ -43,7 +57,7 @@ public class slidingWindowMax {
             arr[i] = Integer.parseInt(values[i]);
         }
         int window = Integer.parseInt(br.readLine());
-        int[] res = windowMaxArr(arr, window);
+        int[] res = windowMaxArrBrute(arr, window);
         System.out.println("Maximum of windows are: ");
         for (int x : res)
             System.out.print(x + " ");
