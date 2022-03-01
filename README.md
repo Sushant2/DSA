@@ -13,7 +13,7 @@
   - [ ] printArraylist
   - [ ] Backtracking
 - [x] Linked list
-- [ ] Stack & Queue
+- [x] Stack & Queue
 - [ ] Trees
   - [ ] Generic Tree
   - [ ] Binary Tree
