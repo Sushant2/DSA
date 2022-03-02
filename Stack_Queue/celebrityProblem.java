@@ -5,6 +5,8 @@ public class celebrityProblem {
 
     public static int[][] arr;
 
+    //! using stack - time complexity - O(n), extra spcae - O(n) for stack 
+
     public static void findCeleb(int[][] arr) {
         // stack to store possible celebs indexes
         Stack<Integer> pCelebs = new Stack<>();
@@ -49,6 +51,8 @@ public class celebrityProblem {
         System.out.println("Celebrity is: " + celeb);
     }
 
+
+    //! using recursion - time complexity - O(n) , Space complexity - O(1)
     public static int knows(int x, int y) {
         return arr[x][y];
     }
