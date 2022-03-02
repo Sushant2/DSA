@@ -5,7 +5,7 @@ public class celebrityProblem {
 
     public static int[][] arr;
 
-    //! using stack - time complexity - O(n), extra spcae - O(n) for stack 
+    // ! using stack - time complexity - O(n), extra spcae - O(n) for stack
 
     public static void findCeleb(int[][] arr) {
         // stack to store possible celebs indexes
@@ -51,8 +51,7 @@ public class celebrityProblem {
         System.out.println("Celebrity is: " + celeb);
     }
 
-
-    //! using recursion - time complexity - O(n) , Space complexity - O(1)
+    // ! using recursion - time complexity - O(n) , Space complexity - O(1)
     public static int knows(int x, int y) {
         return arr[x][y];
     }
@@ -72,7 +71,7 @@ public class celebrityProblem {
             // id knows nth person, so id can't be celeb
             return n - 1;
         else if (knows(id, n - 1) == 0)
-            // id doesn't know nth person, so n can;t be celeb
+            // id doesn't know nth person, so n can't be celeb
             return id;
         // if there is no celebrity
         return -1;
@@ -98,6 +97,33 @@ public class celebrityProblem {
         return -1;
     }
 
+    // ! using 2 pointers - time complexity - O(n), spapce complexity - O(1) no
+    // extra space
+    public static int findCeleb2ptr(int[][] arr, int n) {
+        // 2 pointers, one from starting - i, one from end - j
+        int i = 0, j = n - 1;
+        while (i < j) {
+            if (arr[j][i] == 1)
+                // j knows i, j can't be celeb
+                j--;
+            else
+                // j doesn't know i,i can't be celeb
+                i++;
+        }
+
+        // at last i is pointing to remaining ele
+        int potceleb = i;
+        // confirmation check whether postceleb is actually a celeb or not
+        for (int k = 0; k < n; k++) {
+            if (k != potceleb) {
+                if (arr[k][potceleb] == 0 || arr[potceleb][k] == 1) {
+                    return -1;
+                }
+            }
+        }
+        return potceleb;
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -110,10 +136,11 @@ public class celebrityProblem {
         }
         // findCeleb(arr);
         int id = findCelebRec(arr, n);
-        if (id == -1)
+        int candidate = findCeleb2ptr(arr, n);
+        if (candidate == -1)
             System.out.println("No celebrity!");
         else
-            System.out.println(id + " is celebrity!");
+            System.out.println(candidate + " is celebrity!");
 
     }
 }
