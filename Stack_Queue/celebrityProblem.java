@@ -3,6 +3,8 @@ import java.io.*;
 
 public class celebrityProblem {
 
+    public static int[][] arr;
+
     public static void findCeleb(int[][] arr) {
         // stack to store possible celebs indexes
         Stack<Integer> pCelebs = new Stack<>();
@@ -47,16 +49,67 @@ public class celebrityProblem {
         System.out.println("Celebrity is: " + celeb);
     }
 
+    public static int knows(int x, int y) {
+        return arr[x][y];
+    }
+
+    public static int celebRecusive(int n) {
+        // base case
+        if (n == 0)
+            return -1;
+        // faith
+        int id = celebRecusive(n - 1);
+        // meeting expec
+        // initially when id == -1,means it reached at the base case, so return n-1
+        // value
+        if (id == -1)
+            return n - 1;
+        else if (knows(id, n - 1) == 1)
+            // id knows nth person, so id can't be celeb
+            return n - 1;
+        else if (knows(id, n - 1) == 0)
+            // id doesn't know nth person, so n can;t be celeb
+            return id;
+        // if there is no celebrity
+        return -1;
+    }
+
+    public static int findCelebRec(int[][] arr, int n) {
+        int celeb = celebRecusive(n);
+        // final confirmation to check that returned celeb is really a celeb or not
+        if (celeb == -1)
+            return celeb;
+        else {
+            int c1 = 0, c2 = 0;
+            // it a celeb, then;s it's row should be zero & colum should be one
+            for (int i = 0; i < n; i++) {
+                if (i != celeb) {
+                    c1 += knows(celeb, i);
+                    c2 += knows(i, celeb);
+                }
+            }
+            if (c1 == 0 && c2 == n - 1)
+                return celeb;
+        }
+        return -1;
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        int[][] arr = new int[n][n];
+        arr = new int[n][n];
         for (int i = 0; i < n; i++) {
             String line = br.readLine();
             for (int j = 0; j < n; j++) {
                 arr[i][j] = line.charAt(j) - '0';
             }
         }
-        findCeleb(arr);
+        // findCeleb(arr);
+        int id = findCelebRec(arr, n);
+        if (id == -1)
+            System.out.println("No celebrity!");
+        else
+            System.out.println(id + " is celebrity!");
+
     }
 }
