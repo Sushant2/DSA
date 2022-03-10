@@ -43,7 +43,7 @@ public class heightOfTree {
     }
 
     public static int heightTree(Node node) {
-        // edgecase
+        // corner case
         if (node == null)
             return 0;
         int height = 0;
@@ -51,6 +51,17 @@ public class heightOfTree {
             height = Math.max(height, heightTree(child));
         }
         return 1 + height;
+    }
+
+    public static int heightEdge(Node node) {
+        // corner case
+        if (node == null)
+            return 0;
+        int height = 0;
+        // here we're skipping leafnodes to return 1 as their height
+        for (Node child : node.children)
+            height = Math.max(height, heightEdge(child) + 1);
+        return height;
     }
 
     public static void main(String[] args) throws Exception {
@@ -65,6 +76,7 @@ public class heightOfTree {
         Node root = construct(arr);
         display(root);
         System.out.println("Height(Node) of tree: " + heightTree(root));
-        System.out.println("Height(Edge) of tree: " + heightTree(root));
+        System.out.println("Height(Edge) of tree: " + (heightTree(root) - 1));
+        System.out.println("Height Of tree(in terms of edge): " + heightEdge(root));
     }
 }
