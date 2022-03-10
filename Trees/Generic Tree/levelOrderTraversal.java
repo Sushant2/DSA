@@ -50,6 +50,7 @@ public class levelOrderTraversal {
             displayTree(child);
     }
 
+    // ! time comp - O(n+e) ~ O(n) & space comp - O(n+2) ~ O(n)
     public static void levelOrderTrav(Node node) {
         // need a queue
         Queue<Node> que = new ArrayDeque<>();
