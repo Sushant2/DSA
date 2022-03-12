@@ -53,6 +53,23 @@ public class heightOfTree {
         return 1 + height;
     }
 
+    // height of tree using levelorder or bfs
+    public static int heightTreeBfs(Node node) {
+        Queue<Node> que = new ArrayDeque<>();
+        int height = 0;
+        que.add(node);
+        while (que.size() != 0) {
+            int size = que.size();
+            while (size-- > 0) {
+                Node curr = que.remove();
+                for (Node child : curr.children)
+                    que.add(child);
+            }
+            height++;
+        }
+        return height;
+    }
+
     public static int heightEdge(Node node) {
         // corner case
         if (node == null)
@@ -78,5 +95,7 @@ public class heightOfTree {
         System.out.println("Height(Node) of tree: " + heightTree(root));
         System.out.println("Height(Edge) of tree: " + (heightTree(root) - 1));
         System.out.println("Height Of tree(in terms of edge): " + heightEdge(root));
+        System.out.println("Height of tree(Nodes): " + heightTreeBfs(root));
+        System.out.println("Height of tree(Edges): " + (heightTreeBfs(root) - 1));
     }
 }
