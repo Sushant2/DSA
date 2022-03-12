@@ -69,6 +69,7 @@ public class linearizeATree {
         }
     }
 
+    //! optimised approach  - time comp - O(n), using arraylist to store & return tails of childs
     public static Node linearize2(Node node) {
         if (node == null)
             return null;
