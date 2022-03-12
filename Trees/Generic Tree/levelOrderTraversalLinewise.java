@@ -1,3 +1,7 @@
+//? All 3 approaches to print level order linewise will have same
+//! time comp - O(n)
+//! space comp - O(n), in general in worst case
+
 import java.util.*;
 import java.io.*;
 
@@ -86,10 +90,27 @@ public class levelOrderTraversalLinewise {
         }
     }
 
+    // ! approaches 3 => some changes in the level order traversal(taking out size
+    // of every level & looping only)
+    public static void levelOrderLinewise3(Node node) {
+        Queue<Node> q = new ArrayDeque<>();
+        q.add(node);
+        while (q.size() != 0) {
+            int size = q.size();
+            while (size-- > 0) {
+                Node curr = q.remove();
+                System.out.print(curr.data + " ");
+                for (Node child : curr.children)
+                    q.add(child);
+            }
+            System.out.println();
+        }
+    }
+
     public static void levelOrderLinewise(Node node) {
-        // levelOrderLinewise1(node);
+        levelOrderLinewise1(node);
         levelOrderLinewise2(node);
-        // levelOrderLinewise3(node);
+        levelOrderLinewise3(node);
     }
 
     public static void main(String[] args) throws Exception {
