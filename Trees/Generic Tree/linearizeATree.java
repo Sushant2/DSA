@@ -69,7 +69,8 @@ public class linearizeATree {
         }
     }
 
-    //! optimised approach  - time comp - O(n), using arraylist to store & return tails of childs
+    // ! optimised approach - time comp - O(n), using arraylist to store & return
+    // tails of childs
     public static Node linearize2(Node node) {
         if (node == null)
             return null;
@@ -88,6 +89,27 @@ public class linearizeATree {
         return tails.get(tails.size() - 1);
     }
 
+    // ! optimised approach - w/o using arraylist to store tails, as we know the
+    // last tail is the tail of last subtree, & gonna be tail for second last
+    // subtree and so on...
+    public static Node linearize3(Node node) {
+        // edge case - if node is leaf node then, that node itself acts as a leaf
+        // node/tail node
+        if (node.children.size() == 0) {
+            return node;
+        }
+        // pahle hi last tree tail node mangwalo - kyoki yahi tail sabke lie tail node
+        // banne wala hai jese jese hum peeche se solve krna shurur krenge & sath sath
+        // linearize bhi call kr rhe h
+        Node lastTreeTail = linearize3(node.children.get(node.children.size() - 1));
+        while (node.children.size() > 1) {
+            Node lastTreeHead = node.children.remove(node.children.size() - 1);
+            Node secondLastTreeTail = linearize2(node.children.get(node.children.size() - 1));
+            secondLastTreeTail.children.add(lastTreeHead);
+        }
+        return lastTreeTail;
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -99,7 +121,7 @@ public class linearizeATree {
         Node root = construct(arr);
         System.out.println("Tree before linearization: ");
         display(root);
-        linearize2(root);
+        linearize3(root);
         System.out.println("Tree after linearization: ");
         display(root);
 
