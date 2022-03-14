@@ -58,6 +58,19 @@ public class areTreesSimilar {
         return true;
     }
 
+    public static boolean areTreeSimilarData(Node root1, Node root2) {
+        if (root1.data != root2.data || root1.children.size() != root2.children.size())
+            return false;
+        for (int i = 0; i < root1.children.size(); i++) {
+            Node c1 = root1.children.get(i);
+            Node c2 = root2.children.get(i);
+            boolean ans = areTreeSimilarData(c1, c2);
+            if (!ans)
+                return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -74,7 +87,8 @@ public class areTreesSimilar {
             brr[i] = Integer.parseInt(values2[i]);
         }
         Node root2 = construct(brr);
-        boolean ans = areTreeSimilar(root1, root2);
+        // boolean ans = areTreeSimilar(root1, root2);
+        boolean ans = areTreeSimilarData(root1, root2);
         if (ans)
             System.out.println("Trees are similar!");
         else
