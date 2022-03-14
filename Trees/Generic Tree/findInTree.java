@@ -76,6 +76,26 @@ public class findInTree {
         return false;
     }
 
+    // using BFS
+    // ! O(n)
+    public static boolean findBFS(Node node, int x) {
+        // create a queue
+        Queue<Node> q = new ArrayDeque<>();
+        // add root new node
+        q.add(node);
+        while (q.size() != 0) {
+            int size = q.size();
+            while (size-- > 0) {
+                Node curr = q.remove();
+                if (curr.data == x)
+                    return true;
+                for (Node child : node.children)
+                    q.add(child);
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
