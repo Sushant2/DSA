@@ -45,6 +45,7 @@ public class findInTree {
 
     // find an element using DFS - DFS is simple & no need to take any extra space,
     // like queue in BFS
+    // ! O(n)
     public static boolean findDFS(Node node, int x) {
         // subtrees mein check krenge, and kisi bhi tree ne bhi true return krdia, to
         // wahi se hi ans return krdenge
@@ -53,6 +54,22 @@ public class findInTree {
         }
         for (Node child : node.children) {
             boolean ans = findDFS(child, x);
+            if (ans)
+                return true;
+        }
+        return false;
+    }
+
+    // we can also use "OR gate operator"
+    public static boolean findDFSorGate(Node node, int x) {
+        // subtrees mein check krenge, and kisi bhi tree ne bhi true return krdia, to
+        // wahi se hi ans return krdenge
+        if (node.data == x) {
+            return true;
+        }
+        boolean ans = false;
+        for (Node child : node.children) {
+            ans |= findDFS(child, x);
             if (ans)
                 return true;
         }
@@ -70,7 +87,7 @@ public class findInTree {
         Node root = construct(arr);
         int ele = Integer.parseInt(br.readLine());
         display(root);
-        if (findDFS(root, ele))
+        if (findDFSorGate(root, ele))
             System.out.println("Element found!");
         else
             System.out.println("Element not found!");
