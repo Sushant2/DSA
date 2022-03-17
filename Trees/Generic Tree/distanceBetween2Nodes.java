@@ -61,6 +61,7 @@ public class distanceBetween2Nodes {
     // ?using node to root path & lca
     // cos, the distance of both nodes go though from LCA
     // after LCA, pahle & dusre mein jitni nodes bachingi wahi answer hoga
+    // ! time comp - O(n), space comp - O(n)
     public static int distancebw2Nodes(Node node, int d1, int d2) {
         ArrayList<Integer> path1 = nodeToRoot(node, d1);
         ArrayList<Integer> path2 = nodeToRoot(node, d2);
