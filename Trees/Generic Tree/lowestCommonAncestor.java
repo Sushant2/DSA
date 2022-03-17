@@ -59,6 +59,7 @@ public class lowestCommonAncestor {
     }
 
     // ? solve it using - node to root path
+    // time comp - O(n) && space - O(n)
     public static int LCA(Node root, int d1, int d2) {
         if (root == null)
             return -1;
