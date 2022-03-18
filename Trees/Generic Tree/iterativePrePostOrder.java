@@ -65,6 +65,8 @@ public class iterativePrePostOrder {
 
     }
 
+    // ! using Pair Class {node, state}
+    // ! time comp - O(n) & space comp - O(n)
     static void iterPrePost(Node root) {
         // if state == -1
         // preorder - print & state++
