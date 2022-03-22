@@ -93,6 +93,21 @@ public class TCmultisolver {
         return ans;
     }
 
+    // ! return type - void, passing an array - a[0] as size, a[1] as min, a[2] as
+    // max, a[3] as height
+    public static void multiSolver3(Node root, int[] ans, int level) {
+        ans[0]++;
+        if (root.data < ans[1])
+            ans[1] = root.data;
+        if (root.data > ans[2])
+            ans[2] = root.data;
+        if (level > ans[3])
+            ans[3] = level;
+        for (Node child : root.children) {
+            multiSolver3(child, ans, level + 1);
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -105,12 +120,13 @@ public class TCmultisolver {
         Node root = constructTree(arr);
         // displayTree(root);
         // multiSolver1(root, 0);
-        multisolver ans = multiSolver2(root);
-        System.out.println("Size: " + ans.size);
-        System.out.println("Max: " + ans.max);
-        System.out.println("Min: " + ans.min);
-        System.out.println("Height: " + ans.height);
-
+        // multisolver ans = multiSolver2(root);
+        int[] ans = { 0, Integer.MAX_VALUE, Integer.MIN_VALUE, 0 };
+        multiSolver3(root, ans, 0);
+        System.out.println("Size: " + ans[0]);
+        System.out.println("Max: " + ans[2]);
+        System.out.println("Min: " + ans[1]);
+        System.out.println("Height: " + ans[3]);
     }
 
 }
