@@ -47,7 +47,7 @@ public class TCmultisolver {
     static int max = Integer.MIN_VALUE;
     static int height = 0;
 
-    public static void multiSolver(Node root, int level) {
+    public static void multiSolver1(Node root, int level) {
         if (root == null)
             return;
 
@@ -60,7 +60,37 @@ public class TCmultisolver {
         if (level > height)
             height = level;
         for (Node child : root.children)
-            multiSolver(child, level + 1);
+            multiSolver1(child, level + 1);
+    }
+
+    // ! return type - class
+    public static class multisolver {
+        int size = 0;
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        int height = 0;
+
+        multisolver(int size, int min, int max) {
+            this.size = size;
+            this.min = min;
+            this.max = max;
+        }
+    }
+
+    public static multisolver multiSolver2(Node root) {
+        multisolver ans = new multisolver(1, root.data, root.data);
+        // initialse - commented cos, created constructor
+        // ans.size = 1;
+        // ans.max = root.data;
+        // ans.min = root.data;
+        for (Node child : root.children) {
+            multisolver temp = multiSolver2(child);
+            ans.size += temp.size;
+            ans.max = Math.max(ans.max, temp.max);
+            ans.min = Math.min(ans.min, temp.min);
+            ans.height = Math.max(ans.height, temp.height + 1);
+        }
+        return ans;
     }
 
     public static void main(String[] args) throws Exception {
@@ -74,11 +104,12 @@ public class TCmultisolver {
 
         Node root = constructTree(arr);
         // displayTree(root);
-        multiSolver(root, 0);
-        System.out.println("Size: " + size);
-        System.out.println("Max: " + max);
-        System.out.println("Min: " + min);
-        System.out.println("Height: " + height);
+        // multiSolver1(root, 0);
+        multisolver ans = multiSolver2(root);
+        System.out.println("Size: " + ans.size);
+        System.out.println("Max: " + ans.max);
+        System.out.println("Min: " + ans.min);
+        System.out.println("Height: " + ans.height);
 
     }
 
