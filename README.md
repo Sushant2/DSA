@@ -15,7 +15,7 @@
 - [x] Linked list
 - [x] Stack & Queue
 - [ ] Trees
-  - [ ] Generic Tree
+  - [x] Generic Tree
   - [ ] Binary Tree
   - [ ] Binary Search Tree
 - [ ] Graphs
