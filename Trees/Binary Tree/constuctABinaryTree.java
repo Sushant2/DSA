@@ -1,11 +1,7 @@
 import java.util.*;
-
-import TCNodewithMaxSum.Pair;
-
 import java.io.*;
 
 public class constuctABinaryTree {
-
     private static class Node {
         int data;
         Node left;
@@ -16,11 +12,11 @@ public class constuctABinaryTree {
         }
     }
 
-    public static class pair {
+    public static class Pair {
         Node node;
         int state;
 
-        Pair(Node node, int state){
+        Pair(Node node, int state) {
             this.node = node;
             this.state = state;
         }
@@ -32,7 +28,7 @@ public class constuctABinaryTree {
         stk.push(new Pair(root, -1));
         int idx = 0;
         while (!stk.isEmpty()) {
-            iterativePrePostOrder.Pair par = stk.peek();
+            Pair par = stk.peek();
             if (par.state == -1) {
                 // preorder
                 idx++;
@@ -59,6 +55,27 @@ public class constuctABinaryTree {
         return root;
     }
 
+    public static void displayBTree(Node root) {
+        if (root == null)
+            return;
+        if (root.left != null)
+            System.out.print(root.left.data);
+        else
+            System.out.print(".");
+        System.out.print(" <- " + root.data + " -> ");
+        if (root.right != null)
+            System.out.print(root.right.data);
+        else
+            System.out.print(".");
+
+        System.out.println();
+        // preorder
+        displayBTree(root.left);
+        // inorder
+        displayBTree(root.right);
+        // postorder
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -72,5 +89,7 @@ public class constuctABinaryTree {
             else
                 arr[i] = null;
         }
+        Node root = constructBTree(arr);
+        displayBTree(root);
     }
 }
