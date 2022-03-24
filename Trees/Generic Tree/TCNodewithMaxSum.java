@@ -69,11 +69,13 @@ public class TCNodewithMaxSum {
         for (Node child : root.children) {
             Pair temp = subTreeSum(child);
             ans.sum += temp.sum;
+            //childs se jo max aa rha hai, unka max khud ka max bana rhe hai
             if (temp.maxSum > ans.maxSum) {
                 ans.maxSum = temp.maxSum;
                 ans.maxSumNode = temp.maxSumNode;
             }
         }
+        //khud ka ans bana rhe hai
         if (ans.sum > ans.maxSum) {
             ans.maxSum = ans.sum;
             ans.maxSumNode = root;
