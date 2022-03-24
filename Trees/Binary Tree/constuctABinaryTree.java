@@ -36,9 +36,8 @@ public class constuctABinaryTree {
                     Node child = new Node(arr[idx]);
                     par.node.left = child;
                     stk.push(new Pair(child, -1));
-                    par.state++;
-                } else
-                    par.state++;
+                }
+                par.state++;
             } else if (par.state == 0) {
                 // inorder
                 idx++;
@@ -46,9 +45,8 @@ public class constuctABinaryTree {
                     Node child = new Node(arr[idx]);
                     par.node.right = child;
                     stk.push(new Pair(child, -1));
-                    par.state++;
-                } else
-                    par.state++;
+                }
+                par.state++;
             } else
                 stk.pop();
         }
