@@ -1,4 +1,7 @@
 import java.util.*;
+
+import TCNodewithMaxSum.Pair;
+
 import java.io.*;
 
 public class constuctABinaryTree {
@@ -21,6 +24,39 @@ public class constuctABinaryTree {
             this.node = node;
             this.state = state;
         }
+    }
+
+    public static Node constructBTree(Integer[] arr) {
+        Node root = new Node(arr[0]);
+        Stack<Pair> stk = new Stack<>();
+        stk.push(new Pair(root, -1));
+        int idx = 0;
+        while (!stk.isEmpty()) {
+            iterativePrePostOrder.Pair par = stk.peek();
+            if (par.state == -1) {
+                // preorder
+                idx++;
+                if (arr[idx] != null) {
+                    Node child = new Node(arr[idx]);
+                    par.node.left = child;
+                    stk.push(new Pair(child, -1));
+                    par.state++;
+                } else
+                    par.state++;
+            } else if (par.state == 0) {
+                // inorder
+                idx++;
+                if (arr[idx] != null) {
+                    Node child = new Node(arr[idx]);
+                    par.node.right = child;
+                    stk.push(new Pair(child, -1));
+                    par.state++;
+                } else
+                    par.state++;
+            } else
+                stk.pop();
+        }
+        return root;
     }
 
     public static void main(String[] args) throws Exception {
