@@ -94,11 +94,16 @@ public class sizeSumMaxHeight {
     public static int sum(Node root) {
         if (root == null)
             return 0;
-        int sum = root.data;
-        sum += sum(root.left);
-        sum += sum(root.right);
+        // int sum = root.data;
+        // sum += sum(root.left);
+        // sum += sum(root.right);
 
-        return sum;
+        // return sum;
+
+        // ! or - both are same(in postorder)
+        int leftSum = sum(root.left);
+        int rightSum = sum(root.right);
+        return root.data + leftSum + rightSum;
     }
 
     public static int Max(Node root) {
