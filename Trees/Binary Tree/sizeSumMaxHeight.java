@@ -109,11 +109,17 @@ public class sizeSumMaxHeight {
     public static int Max(Node root) {
         if (root == null)
             return Integer.MIN_VALUE;
-        int max = root.data;
-        max = Math.max(max, Max(root.left));
-        max = Math.max(max, Max(root.right));
+        // int max = root.data;
+        // max = Math.max(max, Max(root.left));
+        // max = Math.max(max, Max(root.right));
 
-        return max;
+        // return max;
+
+        // ! or - both are same(post order)
+        int leftMax = Max(root.left);
+        int rightMax = Max(root.right);
+
+        return Math.max(root.data, Math.max(leftMax, rightMax));
     }
 
     public static int height(Node root) {
