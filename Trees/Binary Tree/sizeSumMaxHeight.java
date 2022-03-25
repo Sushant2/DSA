@@ -132,9 +132,17 @@ public class sizeSumMaxHeight {
         // return height + 1;
 
         // ! in terms of node
-        int leftHeight = height(root.left);
-        int rightHeight = height(root.right);
-        return Math.max(leftHeight, rightHeight) + 1;
+        // int leftHeight = height(root.left);
+        // int rightHeight = height(root.right);
+        // return Math.max(leftHeight, rightHeight) + 1;
+
+        // ! in terms of edge
+        int leftHeight = 0, rightHeight = 0;
+        if (root.left != null)
+            leftHeight = 1 + height(root.left);
+        if (root.right != null)
+            rightHeight = 1 + height(root.right);
+        return Math.max(leftHeight, rightHeight);
     }
 
     public static void main(String[] args) throws Exception {
