@@ -97,6 +97,27 @@ public class rootToNodePath {
         return new ArrayList<>();
     }
 
+    // ! root to node path - passing arraylist as parameter - kind of backtracking -
+    // ! jate hue add kr rhe hai, & aate hue hata rhe hai agar node nhi mili
+    // to/false
+    public static boolean rootToNode(Node root, int data, ArrayList<Integer> ans) {
+        if (root == null)
+            return false;
+        if (root.data == data) {
+            ans.add(root.data);
+            return true;
+        }
+        ans.add(root.data);
+        boolean left = rootToNode(root.left, data, ans);
+        if (left == true)
+            return true;
+        boolean right = rootToNode(root.right, data, ans);
+        if (right == true)
+            return true;
+        ans.remove(ans.size() - 1);
+        return false;
+    }
+
     public static void main(String[] args) throws Exception {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -113,5 +134,8 @@ public class rootToNodePath {
         int data = Integer.parseInt(br.readLine());
         ArrayList<Integer> ans = rootToNode(root, data);
         System.out.println(ans.toString());
+        ArrayList<Integer> path = new ArrayList<>();
+        rootToNode(root, data, path);
+        System.out.println(path.toString());
     }
 }
