@@ -99,7 +99,7 @@ public class rootToNodePath {
 
     // ! root to node path - passing arraylist as parameter - kind of backtracking -
     // ! jate hue add kr rhe hai, & aate hue hata rhe hai agar node nhi mili
-    // to/false
+    // ! to/false
     public static boolean rootToNode(Node root, int data, ArrayList<Integer> ans) {
         if (root == null)
             return false;
@@ -116,6 +116,34 @@ public class rootToNodePath {
             return true;
         ans.remove(ans.size() - 1);
         return false;
+    }
+
+    // ! get all root to node paths of a node in a arraylist
+    // ? time complexity - O(n*h) => O(n) for dfs, o(h) for copying/deep copy - if
+    // ? in worst case every node is the resultant node - so we've to get root to
+    // ? node path of every single node
+    // ! we want every path so not returning true/false
+    // ! deep copy - cos curr is a reference in heap - & changes will persist so in
+    // the end curr becomes zero & in ress we'll add nothing so, we'll not get our
+    // desired ans
+    // TODO: DO DRY RUN FOR BETTER UNDERSTANDNG
+    public static void rootToNodePaths(Node root, int data, ArrayList<Integer> curr,
+            ArrayList<ArrayList<Integer>> res) {
+        // -ve base case
+        if (root == null)
+            return;
+        curr.add(root.data);
+        // +ve base case
+        if (root.data == data) {
+            // deep copying not copying directly as = res.add(curr)
+            ArrayList<Integer> temp = new ArrayList<>();
+            for (Integer i : curr)
+                temp.add(i);
+            res.add(temp);
+        }
+        rootToNodePaths(root.left, data, curr, res);
+        rootToNodePaths(root.right, data, curr, res);
+        curr.remove(curr.size() - 1);
     }
 
     public static void main(String[] args) throws Exception {
@@ -137,5 +165,9 @@ public class rootToNodePath {
         ArrayList<Integer> path = new ArrayList<>();
         rootToNode(root, data, path);
         System.out.println(path.toString());
+        ArrayList<Integer> path2 = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> paths = new ArrayList<>();
+        rootToNodePaths(root, data, path2, paths);
+        System.out.println(paths.toString());
     }
 }
