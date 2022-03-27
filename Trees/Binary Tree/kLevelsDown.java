@@ -72,7 +72,7 @@ public class kLevelsDown {
         displayBTree(root.right);
     }
 
-    //DFS
+    // DFS
     public static void kLevels(Node root, int k) {
         // -ve base case
         if (root == null)
@@ -86,6 +86,28 @@ public class kLevelsDown {
         kLevels(root.left, k - 1);
         kLevels(root.right, k - 1);
 
+    }
+
+    // BFS - level order traversal cos - level = k
+    public static void kLevelsBFS(Node root, int k) {
+        Queue<Node> q = new ArrayDeque<>();
+        q.add(root);
+        int level = 0;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                Node curr = q.remove();
+                if (k == level)
+                    System.out.println(curr.data);
+                if (curr.left != null) {
+                    q.add(curr.left);
+                }
+                if (curr.right != null) {
+                    q.add(curr.right);
+                }
+            }
+            level++;
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -102,6 +124,7 @@ public class kLevelsDown {
         Node root = constructBTree(arr);
         displayBTree(root);
         int k = Integer.parseInt(br.readLine());
-        kLevels(root, k);
+        // kLevels(root, k);
+        kLevelsBFS(root, k);
     }
 }
