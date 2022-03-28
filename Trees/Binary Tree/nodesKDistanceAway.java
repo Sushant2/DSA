@@ -91,15 +91,16 @@ public class nodesKDistanceAway {
         printKDowns(node.right, k - 1, blockage);
     }
 
+    //? time complexity - O(n + n*k) = O(n*k)
     public static void printKFarAway(Node root, int data, int k) {
         if (root == null)
             return;
         // get node to root path in arrayList
-        ArrayList<Node> n2r = nodeToRoot(root, data);
-        for (int i = 0; i < n2r.size(); i++) {
+        ArrayList<Node> n2r = nodeToRoot(root, data); //O(n)
+        for (int i = 0; i < n2r.size(); i++) {//O(k)
             if (k >= 0) {
                 Node blockage = (i == 0) ? null : n2r.get(i - 1);
-                printKDowns(n2r.get(i), k, blockage);
+                printKDowns(n2r.get(i), k, blockage);//O(n)
                 k--;
             }
         }
