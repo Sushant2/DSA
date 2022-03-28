@@ -1,3 +1,5 @@
+//! AMAZONS's Previously Favourite/Classic Interview Question 
+
 import java.io.*;
 import java.util.*;
 
@@ -76,6 +78,19 @@ public class nodesKDistanceAway {
         return new ArrayList<>();
     }
 
+    public static void printKDowns(Node node, int k, Node blockage) {
+        // -ve base case
+        if (node == null || k < 0 || node == blockage)
+            return;
+        // +ve base case
+        if (k == 0) {
+            System.out.println(node.data);
+            return;
+        }
+        printKDowns(node.left, k - 1, blockage);
+        printKDowns(node.right, k - 1, blockage);
+    }
+
     public static void printKFarAway(Node root, int data, int k) {
         if (root == null)
             return;
@@ -84,7 +99,7 @@ public class nodesKDistanceAway {
         for (int i = 0; i < n2r.size(); i++) {
             if (k >= 0) {
                 Node blockage = (i == 0) ? null : n2r.get(i - 1);
-                printKDowns(n2r.get(i), k);
+                printKDowns(n2r.get(i), k, blockage);
                 k--;
             }
         }
