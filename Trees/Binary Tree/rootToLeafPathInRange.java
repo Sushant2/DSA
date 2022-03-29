@@ -55,6 +55,9 @@ public class rootToLeafPathInRange {
 
     // ?1st variation of code
     public static void pathRootToLeafInRange(Node root, String path, int sum, int low, int high) {
+        // null par to jaa hi rhe hai, jab ek hi child hoga to use opposite child pr
+        // null hoga
+
         if (root == null) {
             return;
         }
@@ -70,6 +73,26 @@ public class rootToLeafPathInRange {
         }
         pathRootToLeafInRange(root.left, path + root.data + " ", sum + root.data, low, high);
         pathRootToLeafInRange(root.right, path + root.data + " ", sum + root.data, low, high);
+    }
+
+    // ?2nd variation of code
+    public static void pathRootToLeafInRange2(Node root, String path, int sum, int low, int high) {
+        // null par to jaa hi rhe hai, jab ek hi child hoga to use opposite child pr
+        // null hoga
+        if (root == null) {
+            return;
+        }
+        path += root.data + " ";
+        sum += root.data;
+        // leaves
+        if (root.left == null && root.right == null) {
+            if (sum >= low && sum <= high) {
+                System.out.println(path);
+                return;
+            }
+        }
+        pathRootToLeafInRange(root.left, path, sum, low, high);
+        pathRootToLeafInRange(root.right, path, sum, low, high);
     }
 
     public static void main(String[] args) throws Exception {
@@ -89,6 +112,7 @@ public class rootToLeafPathInRange {
         int low = Integer.parseInt(br.readLine());
         int high = Integer.parseInt(br.readLine());
 
-        pathRootToLeafInRange(root, "", 0, low, high);
+        // pathRootToLeafInRange(root, "", 0, low, high);
+        pathRootToLeafInRange2(root, "", 0, low, high);
     }
 }
