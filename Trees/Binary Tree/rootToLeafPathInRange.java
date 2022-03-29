@@ -95,6 +95,36 @@ public class rootToLeafPathInRange {
         pathRootToLeafInRange(root.right, path, sum, low, high);
     }
 
+    // ! 3rd variation of code - is using string builder instead of string, so we've
+    // !to backtrack in that case - removing added nodes
+    public static void pathRootToLeafInRange3(Node node, StringBuilder path, int sum, int low, int high) {
+        if (node == null) {
+            return;
+        }
+        // node k pre mein add kr rhe hai
+        sum += node.data;
+        path.append(node.data);
+        path.append(" ");
+        if (node.left == null && node.right == null) {
+            if (sum >= low && sum <= high) {
+                System.out.println(path);
+            }
+            path.deleteCharAt(path.length() - 1);
+            for (int i = path.length()-1; i >= 0 && path.charAt(i) != ' '; i--) {
+                path.deleteCharAt(i);
+            }
+            return;
+        }
+        pathRootToLeafInRange3(node.left, path, sum, low, high);
+        pathRootToLeafInRange3(node.right, path, sum, low, high);
+        // node ke post mein remove kr rhe hai
+        path.deleteCharAt(path.length() - 1);
+        for (int i = path.length() - 1; i >= 0 && path.charAt(i) != ' '; i--) {
+            path.deleteCharAt(i);
+        }
+
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -113,6 +143,8 @@ public class rootToLeafPathInRange {
         int high = Integer.parseInt(br.readLine());
 
         // pathRootToLeafInRange(root, "", 0, low, high);
-        pathRootToLeafInRange2(root, "", 0, low, high);
+        // pathRootToLeafInRange2(root, "", 0, low, high);
+        StringBuilder sb = new StringBuilder("");
+        pathRootToLeafInRange3(root, sb, 0, low, high);
     }
 }
