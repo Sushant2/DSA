@@ -53,6 +53,25 @@ public class rootToLeafPathInRange {
         return root;
     }
 
+    // ?1st variation of code
+    public static void pathRootToLeafInRange(Node root, String path, int sum, int low, int high) {
+        if (root == null) {
+            return;
+        }
+        // leaves
+        if (root.left == null && root.right == null) {
+            // add root.data for leaf nodes
+            path += root.data + " ";
+            sum += root.data;
+            if (sum >= low && sum <= high) {
+                System.out.println(path);
+                return;
+            }
+        }
+        pathRootToLeafInRange(root.left, path + root.data + " ", sum + root.data, low, high);
+        pathRootToLeafInRange(root.right, path + root.data + " ", sum + root.data, low, high);
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -67,5 +86,9 @@ public class rootToLeafPathInRange {
                 arr[i] = null;
         }
         Node root = constructBTree(arr);
+        int low = Integer.parseInt(br.readLine());
+        int high = Integer.parseInt(br.readLine());
+
+        pathRootToLeafInRange(root, "", 0, low, high);
     }
 }
