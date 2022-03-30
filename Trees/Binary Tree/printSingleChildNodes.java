@@ -123,6 +123,22 @@ public class printSingleChildNodes {
         printSingleChild3(root.right);
     }
 
+    // ! using parent node - initally passing parent node of root as null, tho, root
+    // ! doesn't have any parent
+    // ! isme hum print kr rhe hai, usi node pr khade hokar, jo node print karani
+    // ! hai, isliye parent chhaiye
+
+    public static void printSingleChild4(Node root, Node parent) {
+        if (root == null)
+            return;
+        if (parent != null && parent.left == null)
+            System.out.println(root.data);
+        if (parent != null && parent.right == null)
+            System.out.println(root.data);
+        printSingleChild4(root.left, root);
+        printSingleChild4(root.right, root);
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -137,6 +153,7 @@ public class printSingleChildNodes {
         Node root = constructBTree(arr);
         // printSingleChild(root);
         // printSingleChild2(root);
-        printSingleChild3(root);
+        // printSingleChild3(root);
+        printSingleChild4(root, null);
     }
 }
