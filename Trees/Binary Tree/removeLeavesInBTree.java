@@ -113,6 +113,22 @@ public class removeLeavesInBTree {
         }
     }
 
+    public static Node removeLeaves3(Node root) {
+        if (root == null)
+            return null;
+        // leaf node
+        if (root.left == null && root.right == null)
+            return null;
+        Node leftChild = removeLeaves3(root.left);
+        Node rightChild = removeLeaves3(root.right);
+
+        root.left = leftChild;
+        root.right = rightChild;
+
+        // hum leaf node nhi h, to khud ko return krado - nonleaf node
+        return root;
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -126,7 +142,8 @@ public class removeLeavesInBTree {
         }
         Node root = constructATree(arr);
         // removeLeaves(root);
-        removeLeaves2(root);
+        // removeLeaves2(root);
+        root = removeLeaves3(root);
         displayBtree(root);
     }
 }
