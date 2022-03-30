@@ -92,6 +92,22 @@ public class printSingleChildNodes {
         printSingleChild(root.right);
     }
 
+    // ! 2nd variation of - w/o need of taking parent node
+    public static void printSingleChild2(Node root) {
+        if (root == null)
+            return;
+
+        if (root.left == null && root.right == null)
+            // left node
+            return;
+        if (root.left == null)
+            System.out.println(root.right.data);
+        if (root.right == null)
+            System.out.println(root.left.data);
+        printSingleChild2(root.left);
+        printSingleChild2(root.right);
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -104,6 +120,7 @@ public class printSingleChildNodes {
                 arr[i] = null;
         }
         Node root = constructBTree(arr);
-        printSingleChild(root);
+        // printSingleChild(root);
+        printSingleChild2(root);
     }
 }
