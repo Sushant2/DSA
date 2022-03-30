@@ -89,6 +89,17 @@ public class transformToLeftClonedTree {
         return root;
     }
 
+    // ! using void return type
+    public static void transformToLeftClone2(Node root) {
+        if (root == null)
+            return;
+        transformToLeftClone2(root.left);
+        transformToLeftClone(root.right);
+        Node copyNode = new Node(root.data);
+        copyNode.left = root.left;
+        root.left = copyNode;
+    }
+
     public static void main(String[] args) throws Exception {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -102,7 +113,9 @@ public class transformToLeftClonedTree {
                 arr[i] = null;
         }
         Node root = constructBTree(arr);
-        Node transformedRoot = transformToLeftClone(root);
-        displayBTree(transformedRoot);
+        // Node transformedRoot = transformToLeftClone(root);
+        // displayBTree(transformedRoot);
+        transformToLeftClone2(root);
+        displayBTree(root);
     }
 }
