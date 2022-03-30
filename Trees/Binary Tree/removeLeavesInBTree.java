@@ -113,6 +113,7 @@ public class removeLeavesInBTree {
         }
     }
 
+    // this return type code - handles edge case where root is leaf/only 1 node
     public static Node removeLeaves3(Node root) {
         if (root == null)
             return null;
