@@ -77,6 +77,8 @@ public class removeLeavesInBTree {
 
     // ! void return type can't handle an edge case where - where root is also a
     // ! leaf node i.e., only one node
+    // ? preorder - kyoki hum uni nodes par jaynege jp delete hone ke baad bachi
+    // ?hongi
     public static void removeLeaves(Node root) {
         if (root == null)
             return;
@@ -93,6 +95,24 @@ public class removeLeavesInBTree {
         removeLeaves(root.right);
     }
 
+    // ! 2nd code variation - void type
+    public static void removeLeaves2(Node root) {
+        if (root == null)
+            return;
+        if (root.left != null) {
+            if (root.left.left == null && root.left.right == null)
+                root.left = null;
+            else
+                removeLeaves2(root.left);
+        }
+        if (root.right != null) {
+            if (root.right.left == null && root.right.right == null)
+                root.right = null;
+            else
+                removeLeaves2(root.right);
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -105,7 +125,8 @@ public class removeLeavesInBTree {
                 arr[i] = null;
         }
         Node root = constructATree(arr);
-        removeLeaves(root);
+        // removeLeaves(root);
+        removeLeaves2(root);
         displayBtree(root);
     }
 }
