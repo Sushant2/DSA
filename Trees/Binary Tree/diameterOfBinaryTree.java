@@ -100,6 +100,9 @@ public class diameterOfBinaryTree {
     // rightheight + 2
     // 2. & sare diameter mein se jo sbse maxm diameter milega wahi poora tree ka
     // diameter h
+
+    // ! 1st approach - we're returning diameter here
+    //! O(n^2) - time comp
     public static int diameter(Node root) {
         if (root == null)
             return 0;
@@ -113,6 +116,22 @@ public class diameterOfBinaryTree {
         int dia = lHeight + rHeight + 2;
 
         return Math.max(dia, Math.max(lDia, rDia));
+    }
+
+    // ! 2nd approach - we're returning height here & forming our answer in static
+    // ! variable
+    //! O(n) - time comp
+    static int maxDia = 0;
+
+    public static int diameter2(Node node) {
+        if (node == null)
+            return -1;
+        int lHeight = diameter2(node.left);
+        int rHeight = diameter2(node.right);
+
+        int dia = lHeight + rHeight + 2;
+        maxDia = Math.max(maxDia, dia);
+        return (Math.max(lHeight, rHeight) + 1);
     }
 
     public static void main(String[] args) throws Exception {
@@ -129,5 +148,9 @@ public class diameterOfBinaryTree {
                 arr[i] = null;
         }
         Node root = constructBTree(arr);
+        // int dia = diameter(root);
+        // System.out.println(dia);
+        diameter2(root);
+        System.out.println(maxDia);
     }
 }
