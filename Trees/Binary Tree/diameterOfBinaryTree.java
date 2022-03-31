@@ -102,7 +102,7 @@ public class diameterOfBinaryTree {
     // diameter h
 
     // ! 1st approach - we're returning diameter here
-    //! O(n^2) - time comp
+    // ! O(n^2) - time comp
     public static int diameter(Node root) {
         if (root == null)
             return 0;
@@ -120,9 +120,10 @@ public class diameterOfBinaryTree {
 
     // ! 2nd approach - we're returning height here & forming our answer in static
     // ! variable
-    //! O(n) - time comp
+    // ! O(n) - time comp
     static int maxDia = 0;
 
+    // code - mixed of above two, if u look closely(height & diameter)
     public static int diameter2(Node node) {
         if (node == null)
             return -1;
