@@ -135,6 +135,33 @@ public class diameterOfBinaryTree {
         return (Math.max(lHeight, rHeight) + 1);
     }
 
+    // ! RETURN BOTH DIAMETER AND HEIGHT(like we did in maximum sum subtree)
+    // ? use pair class
+
+    public static class dPair {
+        int height;
+        int diameter;
+
+        dPair() {
+            height = -1;
+            diameter = 0;
+        }
+    }
+
+    public static dPair diameter3(Node node) {
+        if (node == null)
+            return new dPair();
+        dPair leftP = diameter3(node.left);
+        dPair rightP = diameter3(node.right);
+
+        // khud ka new pair
+        dPair curr = new dPair();
+        curr.height = Math.max(leftP.height, rightP.height) + 1;
+        int dia = leftP.height + rightP.height + 2;
+        curr.diameter = Math.max(dia, Math.max(leftP.diameter, rightP.diameter));
+        return curr;
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -151,7 +178,10 @@ public class diameterOfBinaryTree {
         Node root = constructBTree(arr);
         // int dia = diameter(root);
         // System.out.println(dia);
-        diameter2(root);
-        System.out.println(maxDia);
+        // diameter2(root);
+        // System.out.println(maxDia);
+        dPair ans = diameter3(root);
+        System.out.println(ans.diameter);
+
     }
 }
