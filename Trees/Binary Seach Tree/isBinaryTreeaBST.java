@@ -80,12 +80,12 @@ public class isBinaryTreeaBST {
     }
 
     // ! 3 approaches -
-    // First :(PostOrder) check for a node, all nodes in it's left subtree are
+    // "First" :(PostOrder) check for a node, all nodes in it's left subtree are
     // smaller than the node
     // & all nodes in it's right subtree are greater than the node
-    // Second :(Inorder) inorder traversal of binary search tree is in increasing
+    // "Second" :(Inorder) inorder traversal of binary search tree is in increasing
     // order, so check inorder traversal of binary tree
-    // Third : (Preorder) check for each node in preorder that it lies in range of
+    // "Third" : (Preorder) check for each node in preorder that it lies in range of
     // (min,max), left jayenge to max update krenge, right jayenge to min updte
     // krenge
 
@@ -153,6 +153,20 @@ public class isBinaryTreeaBST {
         // postorder
         boolean right = isBST2(root.right);
         return left && right && self;
+    }
+
+    // ? 3rd Approach : preorder m check krlenge ki wo valid BST ka part h ya nhi
+    public static boolean isBST3(Node root, int min, int max) {
+        if (root == null)
+            return true;
+        if (root.data < max && root.data > min) {
+            // left m jayenge to max ko update krenge
+            boolean lres = isBST3(root.left, min, root.data);
+            // right m jayenge to min ko update krenge
+            boolean rres = isBST3(root.right, root.data, max);
+            return lres && rres;
+        }
+        return false;
     }
 
     public static void main(String[] args) throws Exception {
