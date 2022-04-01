@@ -93,6 +93,7 @@ public class isBinaryTreeaBST {
     // leftsubtree mein se bada hu, & rightsubtree se ye mangega ki mein sbse chota
     // hu
 
+    // ! Optimised appraoch - O(n)
     static class isBSTPair {
         int max = Integer.MIN_VALUE;
         int min = Integer.MAX_VALUE;
@@ -118,6 +119,42 @@ public class isBinaryTreeaBST {
 
     }
 
+    // ! worst time comp - O(n^2) - apprach w/o pair class
+    // public static boolean isBST1(Node root) {
+    // if (root == null) {
+    // return true;
+    // }
+    // boolean lres = isBST1(root.left);
+    // boolean rres = isBST1(root.right);
+    // int leftMax = max(root.left);
+    // int rightMin = min(root.right);
+
+    // if (leftMax < root.data && root.data < rightMin)
+    // return true;
+    // return false;
+    // }
+
+    // ? 2nd Apporach : inorder traversal
+    static int prev = Integer.MIN_VALUE;
+
+    public static boolean isBST2(Node root) {
+        if (root == null) {
+            return true;
+        }
+        // preorder
+        boolean left = isBST2(root.left);
+        // inorder
+        // khud ka kaam
+        boolean self = true;
+        if (root.data < prev)
+            self = false;
+        else
+            prev = root.data;
+        // postorder
+        boolean right = isBST2(root.right);
+        return left && right && self;
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -132,8 +169,9 @@ public class isBinaryTreeaBST {
                 arr[i] = null;
         }
         Node root = constructBTree(arr);
-        isBSTPair ans = isBST(root);
-        if (ans.isbst)
+        // isBSTPair ans = isBST(root);
+        boolean ans = isBST2(root);
+        if (ans)
             System.out.println("true");
         else
             System.out.println("false");
