@@ -1,6 +1,8 @@
 import java.util.*;
 import java.io.*;
 
+//! SIZE & SUM can't be optimised so, remains same as in Binary Tree
+//! MAX,MIN & FIND can be optimised in BST
 public class sizeSumMaxMinFind {
 
     private static class Node {
@@ -75,6 +77,47 @@ public class sizeSumMaxMinFind {
         // postorder
     }
 
+    public static int size(Node root) {
+        if (root == null)
+            return 0;
+        int lsize = size(root.left);
+        int rsize = size(root.right);
+        return lsize + rsize + 1;
+    }
+
+    public static int sum(Node root) {
+        if (root == null)
+            return 0;
+        int lsum = sum(root.left);
+        int rsum = sum(root.right);
+        return root.data + lsum + rsum;
+    }
+
+    public static int max(Node root) {
+        if (root.right == null)
+            return root.data;
+        return max(root.right);
+    }
+
+    public static int min(Node root) {
+        if (root.left == null)
+            return root.data;
+        return min(root.left);
+    }
+
+    // for FIND, we'll use binary search/divide and conquer in binary search tree
+
+    public static boolean find(Node root, int data) {
+        if (root == null)
+            return false;
+        if (root.data == data)
+            return true;
+        if (data > root.data)
+            return find(root.right, data);
+        else
+            return find(root.left, data);
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -86,6 +129,12 @@ public class sizeSumMaxMinFind {
             else
                 arr[i] = null;
         }
+        int data = Integer.parseInt(br.readLine());
         Node root = constructBTree(arr);
+        System.out.println(size(root));
+        System.out.println(sum(root));
+        System.out.println(max(root));
+        System.out.println(min(root));
+        System.out.println(find(root, data));
     }
 }
