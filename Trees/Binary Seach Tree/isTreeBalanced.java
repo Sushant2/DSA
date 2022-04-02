@@ -92,6 +92,34 @@ public class isTreeBalanced {
         return Math.max(leftH, rightH) + 1;
     }
 
+    // using pair class
+    static class BPair {
+        int height;
+        boolean isBal;
+
+        BPair() {
+            this.height = 0;
+            this.isBal = true;
+        }
+    }
+
+    public static BPair isBalanced2(Node root) {
+        if (root == null)
+            return new BPair();
+
+        BPair left = isBalanced2(root.left);
+        BPair right = isBalanced2(root.right);
+
+        // khud ka balance pair - hme bhi to apni height return krni h na, & hmari bhi
+        // kisiko zarurat h
+        BPair mp = new BPair();
+        // hum khud balance tabhi honge, jab hum balance honge & hmara left & right bhi
+        // balance hoga
+        mp.isBal = Math.abs(left.height - right.height) <= 1 && left.isBal && right.isBal;
+        mp.height = Math.max(left.height, right.height) + 1;
+        return mp;
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -105,7 +133,8 @@ public class isTreeBalanced {
         }
         Node root = constructBTree(arr);
         // displayBTree(root);
-        isBalanced(root);
-        System.out.println(isBalanced);
+        // isBalanced(root);
+        BPair ans = isBalanced2(root);
+        System.out.println(ans.isBal);
     }
 }
