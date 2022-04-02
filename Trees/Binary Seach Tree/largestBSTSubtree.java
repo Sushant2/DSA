@@ -75,6 +75,7 @@ public class largestBSTSubtree {
     }
 
     // print like this - largestBSTSubtreeROOT@size
+    //use code of BST - O(n)
     public static class BPair {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
