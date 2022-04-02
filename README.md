@@ -16,7 +16,7 @@
 - [x] Stack & Queue
 - [ ] Trees
   - [x] Generic Tree
-  - [ ] Binary Tree
+  - [x] Binary Tree
   - [ ] Binary Search Tree
 - [ ] Graphs
 - [ ] Hashmap And Heap
