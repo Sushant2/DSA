@@ -14,6 +14,7 @@ public class LCAOfBST {
         }
     }
 
+    // ! it will fail if one node does not exists
     public static Node construct(int[] arr, int low, int high) {
         // base case
         if (low > high)
