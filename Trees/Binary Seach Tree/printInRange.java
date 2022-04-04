@@ -47,7 +47,7 @@ public class printInRange {
     }
 
     // with optimization - saving calls
-    //! time comp - best case - O(h), worst case - O(n)
+    // ! time comp - best case - O(h), worst case - O(n)
     public static void printinrange2(Node node, int d1, int d2) {
         if (node == null)
             return;
@@ -63,6 +63,18 @@ public class printInRange {
 
     }
 
+    // code variation of optimised code
+    public static void printinrange3(Node node, int d1, int d2) {
+        if (node == null)
+            return;
+        if (!(node.data < d1))
+            printinrange3(node.left, d1, d2);
+        if (node.data >= d1 && node.data <= d2)
+            System.out.print(node.data + " ");
+        if (!(node.data > d2))
+            printinrange3(node.right, d1, d2);
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -76,6 +88,7 @@ public class printInRange {
         int d2 = Integer.parseInt(br.readLine());
         // display(root);
         // printinrange(root, d1, d2);
-        printinrange2(root, d1, d2);
+        // printinrange2(root, d1, d2);
+        printinrange3(root, d1, d2);
     }
 }
