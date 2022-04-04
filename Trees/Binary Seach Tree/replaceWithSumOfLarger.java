@@ -49,6 +49,22 @@ public class replaceWithSumOfLarger {
         return root;
     }
 
+    // ! LEETCODE - 1038
+    // convert this into a greater tree such that every key of origianl BST is
+    // changed to the original key plues sum of all keys greater than the original
+    // keys
+    static int sum2 = 0;
+
+    public static Node smallToGreaterTree2(Node root) {
+        if (root == null)
+            return null;
+        smallToGreaterTree2(root.right);
+        sum2 += root.data;
+        root.data = sum2;
+        smallToGreaterTree2(root.left);
+        return root;
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -58,7 +74,8 @@ public class replaceWithSumOfLarger {
             arr[i] = Integer.parseInt(values[i]);
         Node root = constructBST(arr, 0, n - 1);
         display(root);
-        root = smallToGreaterTree(root);
+        // root = smallToGreaterTree(root);
+        root = smallToGreaterTree2(root);
         System.out.println();
         display(root);
     }
