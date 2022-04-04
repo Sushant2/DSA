@@ -35,6 +35,7 @@ public class printInRange {
     }
 
     // print in range without optimization
+    // !time comp - O(n)
     public static void printinrange(Node root, int d1, int d2) {
         if (root == null)
             return;
@@ -43,6 +44,23 @@ public class printInRange {
         if (root.data >= d1 && root.data <= d2)
             System.out.print(root.data + " ");
         printinrange(root.right, d1, d2);
+    }
+
+    // with optimization - saving calls
+    //! time comp - best case - O(h), worst case - O(n)
+    public static void printinrange2(Node node, int d1, int d2) {
+        if (node == null)
+            return;
+        if (node.data < d1)
+            printinrange2(node.right, d1, d2);
+        else if (node.data > d2)
+            printinrange2(node.right, d1, d2);
+        else {
+            printinrange2(node.left, d1, d2);
+            System.out.print(node.data + " ");
+            printinrange2(node.right, d1, d2);
+        }
+
     }
 
     public static void main(String[] args) throws Exception {
@@ -57,6 +75,7 @@ public class printInRange {
         int d1 = Integer.parseInt(br.readLine());
         int d2 = Integer.parseInt(br.readLine());
         // display(root);
-        printinrange(root, d1, d2);
+        // printinrange(root, d1, d2);
+        printinrange2(root, d1, d2);
     }
 }
