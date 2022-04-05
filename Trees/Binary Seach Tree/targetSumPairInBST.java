@@ -97,6 +97,7 @@ public class targetSumPairInBST {
     // calclute sum of nodes
 
     // ? so we'll use iterative inorder + iterative reverse inorder
+    //time comp - O(n), space comp - O(h)
     public static class Pair {
         Node node;
         int state;
