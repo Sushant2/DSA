@@ -14,10 +14,10 @@
   - [ ] Backtracking
 - [x] Linked list
 - [x] Stack & Queue
-- [ ] Trees
+- [x] Trees
   - [x] Generic Tree
   - [x] Binary Tree
-  - [ ] Binary Search Tree
+  - [x] Binary Search Tree
 - [ ] Graphs
 - [ ] Hashmap And Heap
 - [ ] Dynamic Programming And Grredy
