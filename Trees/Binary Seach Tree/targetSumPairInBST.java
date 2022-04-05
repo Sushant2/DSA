@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.*;
 
+//Leetcode - 653
+
 public class targetSumPairInBST {
 
     private static class Node {
@@ -45,6 +47,34 @@ public class targetSumPairInBST {
             return true;
     }
 
+    // ! 2nd approach - Easiest apprach - Store nodes in array & use 2 pointers from
+    // ! start & end of array
+    public static void inorder(Node root, ArrayList<Integer> arr) {
+        if (root == null)
+            return;
+        inorder(root.left, arr);
+        arr.add(root.data);
+        inorder(root.right, arr);
+    }
+
+    public static void targetSum2(Node root, int target) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        inorder(root, arr);
+        // 2 pointers on arraylist
+        int left = 0, right = arr.size() - 1;
+        while (left < right) {
+            int sum = arr.get(left) + arr.get(right);
+            if (sum == target) {
+                System.out.println(arr.get(left) + " " + arr.get(right));
+                left++;
+                right--;
+            } else if (sum < target)
+                left++;
+            else
+                right--;
+        }
+    }
+
     public static void targetSum(Node curr, int sum, Node root) {
         if (curr == null)
             return;
@@ -72,6 +102,8 @@ public class targetSumPairInBST {
         Node root = construct(arr, 0, n - 1);
         int target = Integer.parseInt(br.readLine());
         display(root);
-        targetSum(root, target, root);
+        // targetSum(root, target, root);
+        targetSum2(root, target);
+
     }
 }
