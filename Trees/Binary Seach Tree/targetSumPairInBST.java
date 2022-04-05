@@ -32,7 +32,33 @@ public class targetSumPairInBST {
         display(root.right);
     }
 
-    
+    // !first approach : Inorder & find
+    // time comp : O(n*h) + space comp : O(h)
+    public static boolean find(Node root, int data) {
+        if (root == null)
+            return false;
+        if (root.data > data)
+            return find(root.left, data);
+        else if (root.data < data)
+            return find(root.right, data);
+        else
+            return true;
+    }
+
+    public static void targetSum(Node curr, int sum, Node root) {
+        if (curr == null)
+            return;
+        targetSum(curr.left, sum, root);
+        // inorder
+        // stop when data > sum/2
+        if (curr.data >= (sum / 2))
+            return;
+        int data = sum - curr.data;
+        // ! NOTICE :we're passing root to find, not curr node
+        if (find(root, data))
+            System.out.println(curr.data + " " + data);
+        targetSum(curr.right, sum, root);
+    }
 
     public static void main(String[] args) throws Exception {
 
@@ -44,7 +70,8 @@ public class targetSumPairInBST {
             arr[i] = Integer.parseInt(values[i]);
         }
         Node root = construct(arr, 0, n - 1);
-        int targetSum = Integer.parseInt(br.readLine()));
+        int target = Integer.parseInt(br.readLine());
         display(root);
+        targetSum(root, target, root);
     }
 }
