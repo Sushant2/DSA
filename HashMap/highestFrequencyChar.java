@@ -16,7 +16,7 @@ public class highestFrequencyChar {
 
         // System.out.println(hash);
         Set<Character> keys = hash.keySet();
-        char high = 'z';
+        char high = str.charAt(0);
         int maxFreq = 0;
         for (Character x : keys) {
             if (hash.get(x) > maxFreq) {
