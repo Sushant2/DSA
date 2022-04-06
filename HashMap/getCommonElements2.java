@@ -12,8 +12,14 @@ public class getCommonElements2 {
             } else
                 hash.put(arr1[i], 1);
         }
+
+        System.out.println(hash);
         for (int i = 0; i < arr2.length; i++) {
-            
+            if (hash.containsKey(arr2[i]) && hash.get(arr2[i]) > 0) {
+                System.out.print(arr2[i] + " ");
+                int freq = hash.get(arr2[i]);
+                hash.put(arr2[i], freq - 1);
+            }
         }
     }
 
