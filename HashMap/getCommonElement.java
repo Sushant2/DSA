@@ -5,6 +5,7 @@ import java.io.*;
 
 public class getCommonElement {
 
+    // using hash table - time comp - O(n)
     public static void getCommon(int[] arr1, int[] arr2) {
         HashMap<Integer, Boolean> hash = new HashMap<>();
         for (int i = 0; i < arr1.length; i++)
@@ -17,6 +18,30 @@ public class getCommonElement {
                 hash.put(arr2[i], false);
             }
         }
+    }
+
+    // sorting arrays & using 2 pointers - timme comp - O(nlogn)
+
+    public static void getCommon2(int[] arr1, int[] arr2) {
+        // using set
+        Set<Integer> set = new HashSet<>();
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+        int i = 0;
+        int j = 0;
+        while (i < arr1.length && j < arr2.length) {
+            if (arr1[i] < arr2[j])
+                i++;
+            else if (arr1[i] > arr2[j])
+                j++;
+            else {
+                set.add(arr1[i]);
+                i++;
+                j++;
+            }
+        }
+        for (Integer x : set)
+            System.out.print(x);
     }
 
     public static void main(String[] args) throws Exception {
@@ -34,6 +59,7 @@ public class getCommonElement {
         for (int i = 0; i < m; i++)
             arr2[i] = Integer.parseInt(values2[i]);
 
-        getCommon(arr1, arr2);
+        // getCommon(arr1, arr2);
+        getCommon2(arr1, arr2);
     }
 }
