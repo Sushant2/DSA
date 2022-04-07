@@ -19,11 +19,13 @@ public class longestConsecutiveSequenceOfElements {
                 continue;
             else if (arr[i] + 1 == arr[i + 1]) {
                 count++;
-                if (maxCount < count)
+                if (maxCount < count) {
                     maxCount = count;
+                    maxStart = curr;
+                }
             } else {
                 count = 1;
-                curr = arr[i];
+                curr = arr[i + 1];
             }
         }
         while (maxCount-- > 0) {
