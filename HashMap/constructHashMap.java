@@ -65,6 +65,7 @@ public class constructHashMap {
             }
         }
 
+        // !PUT
         public void put(K key, V value) throws Exception {
             // if key already exist, then update value
             int bucketId = getBucketId(key);
@@ -79,6 +80,22 @@ public class constructHashMap {
                 size++;
             }
         }
+
+        // ! GET
+        public V get(K key) throws Exception {
+            int bucketId = getBucketId(key);
+            int dataId = getDataId(bucketId, key);
+            if (dataId != -1) {
+                int counter = 0;
+                for (HMNode node : buckets[bucketId]) {
+                    if (counter == dataId)
+                        return node.value;
+                    counter++;
+                }
+            }
+            return null;
+        }
+
     }
 
     public static void main(String[] args) throws Exception {
