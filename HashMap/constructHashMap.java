@@ -96,6 +96,15 @@ public class constructHashMap {
             return null;
         }
 
+        // ! CONTAINS KEY
+        public boolean contains(K key) {
+            int bucketId = getBucketId(key);
+            int dataId = getDataId(bucketId, key);
+            if (dataId == -1)
+                return false;
+            else
+                return true;
+        }
     }
 
     public static void main(String[] args) throws Exception {
