@@ -105,6 +105,26 @@ public class constructHashMap {
             else
                 return true;
         }
+
+        public V remove(K key) throws Exception {
+            int bucketId = getBucketId(key);
+            int dataId = getDataId(bucketId, key);
+            if (dataId == -1)
+                return null;
+            else {
+                V val = null;
+                int count = 0;
+                for (HMNode node : buckets[bucketId]) {
+                    if (count == dataId) {
+                        val = node.value;
+                        buckets[bucketId].remove(val);
+                    }
+                    count++;
+                }
+                return val;
+            }
+        }
+        
     }
 
     public static void main(String[] args) throws Exception {
