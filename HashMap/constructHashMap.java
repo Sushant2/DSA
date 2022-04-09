@@ -97,7 +97,7 @@ public class constructHashMap {
         }
 
         // ! CONTAINS KEY
-        public boolean contains(K key) {
+        public boolean containsKey(K key) {
             int bucketId = getBucketId(key);
             int dataId = getDataId(bucketId, key);
             if (dataId == -1)
@@ -158,6 +158,34 @@ public class constructHashMap {
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+        // hashmap
+        HashMap<String, Integer> map = new HashMap();
+        String str = br.readLine();
+        while (!str.equals("quit")) {
+            if (str.startsWith("put")) {
+                String[] parts = str.split(" ");
+                String key = parts[1];
+                Integer val = Integer.parseInt(parts[2]);
+                map.put(key, val);
+            } else if (str.startsWith("get")) {
+                String[] parts = str.split(" ");
+                String key = parts[1];
+                System.out.println(map.get(key));
+            } else if (str.startsWith("containsKey")) {
+                String[] parts = str.split(" ");
+                String key = parts[1];
+                System.out.println(map.containsKey(key));
+            } else if (str.startsWith("remove")) {
+                String[] parts = str.split(" ");
+                String key = parts[1];
+                System.out.println(map.remove(key));
+            } else if (str.startsWith("size"))
+                System.out.println(map.size());
+            else if (str.startsWith("keySet"))
+                System.out.println(map.keySet());
+            else if (str.startsWith("display"))
+                map.display();
+            str = br.readLine();
+        }
     }
 }
