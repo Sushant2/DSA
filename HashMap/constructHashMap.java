@@ -3,156 +3,153 @@ import java.io.*;
 
 public class constructHashMap {
 
-    // key and value are of generic type
+    // keys & values are of generic type
     public static class HashMap<K, V> {
-        // ? hashmap ki node
+        // hashmap banaenge arrays of linkedlist having node HMNode
         private class HMNode {
-            K key; // K type ki key
-            V value; // V type ki value
-            HMNode next;
+            K key;
+            V value;
 
             HMNode() {
             }
 
+            // constructor of HMNode
             HMNode(K key, V value) {
                 this.key = key;
                 this.value = value;
             }
         }
 
-        // ? hashmap ka Data structure - array of linkedlist
+        // data members
         private LinkedList<HMNode>[] buckets;
-        private int size;
-        private int capacity;
+        private int noOfNodes; // size
+        private int noOfBuckets; // capacity
+        private double loadingFactor; // rehashing
 
+        // constructor of hashmap
         public HashMap() {
-            capacity = 4;
-            size = 0;
-            buckets = new LinkedList[capacity];
-
-            for (int i = 0; i < capacity; i++) {
-                buckets[i] = new LinkedList<>();
-            }
+            noOfBuckets = 4;
+            noOfNodes = 0;
+            loadingFactor = 0.0;
+            init();
         }
 
-        public int getBucketId(K key) {
+        // initlise every bucket with empty linkedlist
+        public void init() {
+            buckets = new LinkedList[noOfBuckets];
+            for (int i = 0; i < noOfBuckets; i++)
+                buckets[i] = new LinkedList<>();
+        }
+
+        // !GET BUCKET ID
+        public int getBucketId(K key) throws Exception {
             // O(1)
             int hashCode = key.hashCode();
-            int bucketId = (Math.abs(hashCode)) % capacity;
+            int bucketId = (Math.abs(hashCode)) % noOfBuckets;
             return bucketId;
         }
 
-        // to get node index from the linkedlist of that bucket
-        public int getDataId(int bucketId, K key) {
-            int count = 0;
+        // ! GET DATA - that node from linkedlist from that bucket
+        private HMNode getData(int bucketId, K key) throws Exception {
             for (HMNode node : buckets[bucketId]) {
-                // to check - we're also comparing data, rather than comparing references only
                 if (node.key.equals(key) == true)
-                    // if data exists, return index/count
-                    return count;
-                count++;
+                    return node;// if data exists return that node
             }
-            // if data doesn't exists
-            return -1;
+            // if data doesnot exists return null
+            return null;
         }
 
-        public void setDataId(int bucketId, int dataId, V value) {
-            int count = 0;
-            for (HMNode node : buckets[bucketId]) {
-                if (count == dataId)
-                    node.value = value;
-                count++;
-            }
-        }
-
-        // !PUT
+        // ! PUT - insertion + updation with rehashing
         public void put(K key, V value) throws Exception {
-            // if key already exist, then update value
+            // O(1)
             int bucketId = getBucketId(key);
-            int dataId = getDataId(bucketId, key);
-            if (getDataId(bucketId, key) != -1) {
-                // update that node's value
-                setDataId(bucketId, dataId, value);
-            } else {
+            HMNode data = getData(bucketId, key);
+            if (data == null) {
+                // insertion
+                double newLoadingFactor = (noOfNodes + 1.0) / (noOfBuckets);
+                if (newLoadingFactor > 2.0) {
+                    // rehashing
+                    LinkedList<HMNode>[] oldBuckets = buckets;
+                    noOfBuckets = 2 * noOfBuckets;
+                    init(); // initialse empty linkedlist in new array of increased size
+
+                    // now refill the new array with nodes of old array
+                    for (int i = 0; i < oldBuckets.length; i++) {
+                        for (HMNode node : oldBuckets[i]) {
+                            int newBucketId = getBucketId(node.key);
+                            buckets[newBucketId].addLast(node);
+                        }
+                    }
+                }
+                // add new node
+                int newBucketId = getBucketId(key);
                 HMNode node = new HMNode(key, value);
-                // O(1)
-                buckets[bucketId].addLast(node);
-                size++;
+                buckets[newBucketId].addLast(node);
+                noOfNodes++;
+                loadingFactor = (noOfNodes * 1.0) / (noOfBuckets);
+            } else {
+                // updation
+                data.value = value;
             }
         }
 
         // ! GET
         public V get(K key) throws Exception {
             int bucketId = getBucketId(key);
-            int dataId = getDataId(bucketId, key);
-            if (dataId != -1) {
-                int counter = 0;
-                for (HMNode node : buckets[bucketId]) {
-                    if (counter == dataId)
-                        return node.value;
-                    counter++;
-                }
-            }
-            return null;
+            HMNode data = getData(bucketId, key);
+            if (data != null)
+                return data.value;
+            else
+                return null;
         }
 
         // ! CONTAINS KEY
-        public boolean containsKey(K key) {
+        public boolean containsKey(K key) throws Exception {
             int bucketId = getBucketId(key);
-            int dataId = getDataId(bucketId, key);
-            if (dataId == -1)
-                return false;
-            else
+            HMNode data = getData(bucketId, key);
+            if (data != null)
                 return true;
+            return false;
         }
 
-        // ! REMOVE
+        // !REMOVE
         public V remove(K key) throws Exception {
             int bucketId = getBucketId(key);
-            int dataId = getDataId(bucketId, key);
-            if (dataId == -1)
+            HMNode data = getData(bucketId, key);
+            if (data == null)
                 return null;
-            else {
-                V val = null;
-                int count = 0;
-                for (HMNode node : buckets[bucketId]) {
-                    if (count == dataId) {
-                        val = node.value;
-                        buckets[bucketId].remove(val);
-                    }
-                    count++;
-                }
-                size--;
-                return val;
-            }
+            V value = data.value;
+            buckets[bucketId].remove(data);
+            noOfNodes--;
+            // updated loading factor after removal
+            loadingFactor = (noOfNodes * 1.0) / noOfBuckets;
+            return value;
+
         }
 
         // ! KEYSET
         public ArrayList<K> keySet() throws Exception {
             ArrayList<K> keys = new ArrayList<>();
-            for (int i = 0; i < buckets.length; i++) {
+            for (int i = 0; i < noOfBuckets; i++) {
                 for (HMNode node : buckets[i])
                     keys.add(node.key);
             }
             return keys;
         }
 
-        // ! SIZE
-        public int size() {
-            return size;
+        public int size() throws Exception {
+            return noOfNodes;
         }
 
-        // ! DISPLAY
-        public void display() {
-            System.out.println("Display Begins ");
-            for (int bi = 0; bi < buckets.length; bi++) {
-                System.out.print("Bucket " + bi + " ");
-                for (HMNode node : buckets[bi]) {
-                    System.out.print(node.key + "@" + node.value);
-                }
+        public void display() throws Exception {
+            System.out.println("Display Begins");
+            for (int i = 0; i < buckets.length; i++) {
+                System.out.print("Buckets" + i + " ");
+                for (HMNode node : buckets[i])
+                    System.out.print(node.key + "@" + node.value + " ");
                 System.out.println(".");
             }
-            System.out.println("Display Ends ");
+            System.out.println("Display Ends");
         }
     }
 
