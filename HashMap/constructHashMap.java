@@ -106,6 +106,7 @@ public class constructHashMap {
                 return true;
         }
 
+        // ! REMOVE
         public V remove(K key) throws Exception {
             int bucketId = getBucketId(key);
             int dataId = getDataId(bucketId, key);
@@ -121,10 +122,22 @@ public class constructHashMap {
                     }
                     count++;
                 }
+                size--;
                 return val;
             }
         }
-        
+
+        // ! KEYSET
+        public ArrayList<K> keySet() throws Exception {
+            ArrayList<K> keys = new ArrayList<>();
+            for (int i = 0; i < buckets.length; i++) {
+                for (HMNode node : buckets[i])
+                    keys.add(node.key);
+            }
+            return keys;
+        }
+
+    
     }
 
     public static void main(String[] args) throws Exception {
