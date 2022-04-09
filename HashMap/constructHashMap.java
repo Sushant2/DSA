@@ -185,6 +185,8 @@ public class constructHashMap {
                 System.out.println(map.keySet());
             else if (str.startsWith("display"))
                 map.display();
+            else
+                System.out.println("Enter valid command!");
             str = br.readLine();
         }
     }
