@@ -142,6 +142,18 @@ public class constructHashMap {
             return size;
         }
 
+        // ! DISPLAY
+        public void display() {
+            System.out.println("Display Begins ");
+            for (int bi = 0; bi < buckets.length; bi++) {
+                System.out.print("Bucket " + bi + " ");
+                for (HMNode node : buckets[bi]) {
+                    System.out.print(node.key + "@" + node.value);
+                }
+                System.out.println(".");
+            }
+            System.out.println("Display Ends ");
+        }
     }
 
     public static void main(String[] args) throws Exception {
