@@ -137,7 +137,11 @@ public class constructHashMap {
             return keys;
         }
 
-    
+        // ! SIZE
+        public int size() {
+            return size;
+        }
+
     }
 
     public static void main(String[] args) throws Exception {
