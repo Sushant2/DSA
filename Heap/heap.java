@@ -23,5 +23,27 @@ public class heap {
         System.out.println();
 
         System.out.println("Size: " + pq.size());
+
+        // max Heap
+        PriorityQueue<Integer> mpq = new PriorityQueue<>(Collections.reverseOrder());
+
+        mpq.add(10);
+        mpq.add(40);
+        mpq.add(20);
+        mpq.add(60);
+        mpq.add(90);
+        mpq.add(30);
+
+        System.out.println(mpq);
+
+        System.out.println("Size: " + mpq.size());
+
+        while (mpq.size() > 0) {
+            int val = mpq.remove();
+            System.out.print(val + " ");
+        }
+        System.out.println();
+
+        System.out.println("Size: " + mpq.size());
     }
 }
