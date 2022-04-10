@@ -14,9 +14,14 @@ public class heap {
 
         System.out.println(pq);
 
+        System.out.println("Size: " + pq.size());
+
         while (!pq.isEmpty()) {
             int val = pq.remove();
             System.out.print(val + " ");
         }
+        System.out.println();
+
+        System.out.println("Size: " + pq.size());
     }
 }
