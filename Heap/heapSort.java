@@ -6,14 +6,17 @@ public class heapSort {
     // same code of PQusingHeap
     public static class PriorityQueue {
         ArrayList<Integer> data;
+        private int size;
 
         public PriorityQueue() {
             data = new ArrayList<>();
+            size = 0;
         }
 
         public void add(int val) {
             // O(logn) - to insert an element
             data.add(val); // add at last
+            size++;
             upheapify(size() - 1); // upheapify call
         }
 
@@ -51,7 +54,7 @@ public class heapSort {
         }
 
         public int size() {
-            return data.size();
+            return size;
         }
 
         public int remove() {
@@ -62,7 +65,8 @@ public class heapSort {
             }
             int val = peek();
             swap(0, size() - 1);
-            data.remove(size() - 1);
+            // data.remove(size() - 1);
+            size--; // remove nhi kia, sirf size ko dec krdia
             downHeapify(0);
             return val;
         }
@@ -71,9 +75,9 @@ public class heapSort {
             int min = idx;
             int leftIdx = 2 * idx + 1;
             int rightIdx = 2 * idx + 2;
-            if (leftIdx < size() && isSmaller(leftIdx, min))
+            if (leftIdx < size && isSmaller(leftIdx, min))
                 min = leftIdx;
-            if (rightIdx < size() && isSmaller(rightIdx, min))
+            if (rightIdx < size && isSmaller(rightIdx, min))
                 min = rightIdx;
             if (min != idx) {
                 swap(idx, min);
@@ -92,6 +96,16 @@ public class heapSort {
             return sorted;
         }
         // now after sorting if we call peek/remove - we get underflow
+
+        // ! HEAP SORT - Inplace - we've to perform do some modifications - use size as
+        // size property not function - O(1) extra space
+        public ArrayList<Integer> heapSortIn() {
+            // reverse order m print
+            while (size() > 0)
+                remove();
+            return data;
+        }
+
     }
 
     public static void main(String[] args) throws Exception {
@@ -117,6 +131,9 @@ public class heapSort {
                 System.out.println(qu.size());
             } else if (str.startsWith("heapSort")) {
                 ArrayList<Integer> sorted = qu.heapSort();
+                System.out.println(sorted.toString());
+            } else if (str.startsWith("heapSortIn")) {
+                ArrayList<Integer> sorted = qu.heapSortIn();
                 System.out.println(sorted.toString());
             } else
                 System.out.println("Write valid command!");
