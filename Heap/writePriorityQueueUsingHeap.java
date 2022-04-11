@@ -53,9 +53,36 @@ public class writePriorityQueueUsingHeap {
             return data.size();
         }
 
+        public int remove() {
+            // O(logn)
+            if (size() == 0) {
+                System.out.println("Underflow!");
+                return -1;
+            }
+            int val = peek();
+            swap(0, size() - 1);
+            data.remove(size() - 1);
+            downHeapify(0);
+            return val;
+        }
+
+        public void downHeapify(int idx) {
+            int min = idx; // khud ka index
+            int leftIdx = 2 * idx + 1;
+            int rightIdx = 2 * idx + 2;
+            if (leftIdx < size() && isSmaller(leftIdx, min))
+                min = leftIdx;
+            if (rightIdx < size() && isSmaller(rightIdx, min))
+                min = rightIdx;
+            if (min != idx) {
+                swap(idx, min);
+                downHeapify(min);
+            }
+
+        }
     }
 
     public static void main(String[] args) throws Exception {
-
+        
     }
 }
