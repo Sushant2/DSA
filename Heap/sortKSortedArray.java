@@ -27,6 +27,7 @@ public class sortKSortedArray {
         for (int i = 0; i < k; i++)
             pq.add(arr[i]);
         for (int i = k; i < arr.length; i++) {
+            // window k +1 ki banni chahiye isiliye pahle add krwalia & then remove
             pq.add(arr[i]);
             System.out.print(pq.remove() + " ");
         }
