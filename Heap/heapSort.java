@@ -28,7 +28,9 @@ public class heapSort {
             // now these element inserted above are not following heap order property - to
             // do so, we'll perfrom downheapify from last level (accurately last 2nd level
             // cos last/leaf level doesn't have any children to peform downheapify)
-            for (int i = (size() - 1) / 2; i >= 0; i--) {
+            int lastIdx = size() - 1;
+            int lastIdxPar = (lastIdx - 1) / 2;
+            for (int i = lastIdxPar; i >= 0; i--) {
                 downHeapify(i);
             }
         }
