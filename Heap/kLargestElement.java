@@ -11,8 +11,9 @@ public class kLargestElement {
             System.out.println(arr[i]);
     }
 
-    // ! Optimised Approach - use MaxHeap - O(nlogn + klogn) //insertion & k
-    // elements remove
+    // ! Optimised Approach - use MaxHeap - O(nlogn + klogn)
+    // ! nlong - insertion(can be done in (n) with effiecient constructor
+    // ! klogn - k elements remove
     // store every element in max heap & pop first k elements
     public static void kLargestMaxHeap(int[] arr, int k) {
         // maxheap priority queue
@@ -21,6 +22,33 @@ public class kLargestElement {
             pq.add(val);
         while (k-- > 0)
             System.out.print(pq.remove() + " ");
+    }
+
+    // ! Most Optimised Approach - use minheap - O(n.lognK)
+    // sare elements na insert karake, kuch element ko insert karake k largest
+    // element nikalle
+    // kisi bhi time par sirf 3 elements insert krenge
+    // ek window kind rkhlenge "k" size ka, & new elemnt se check krate rhnge so
+    // remove & insert
+    public static void kLargestMinHeap(int[] arr, int k) {
+        // min heap - bydefault - priority queue
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        // first insert k elements
+        for (int i = 0; i < k; i++)
+            pq.add(arr[i]);
+        for (int i = k; i < arr.length; i++) {
+            if (arr[i] > pq.peek()) {
+                pq.remove();
+                pq.add(arr[i]);
+            }
+        }
+
+        ArrayList<Integer> res = new ArrayList<>();
+
+        while (!pq.isEmpty())
+            res.add(pq.remove());
+        for (int i = res.size() - 1; i >= 0; i--)
+            System.out.print(res.get(i) + " ");
     }
 
     public static void main(String[] args) throws Exception {
@@ -32,6 +60,7 @@ public class kLargestElement {
             arr[i] = Integer.parseInt(values[i]);
         int k = Integer.parseInt(br.readLine());
         // kLargest(arr, k);
-        kLargestMaxHeap(arr, k);
+        // kLargestMaxHeap(arr, k);
+        kLargestMinHeap(arr, k);
     }
 }
