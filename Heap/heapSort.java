@@ -151,10 +151,10 @@ public class heapSort {
                 System.out.println(qu.size());
             } else if (str.startsWith("heapSort")) {
                 ArrayList<Integer> sorted = qu.heapSort();
-                System.out.println(sorted.toString());
+                System.out.println(sorted);
             } else if (str.startsWith("heapSortIn")) {
                 ArrayList<Integer> sorted = qu.heapSortIn();
-                System.out.println(sorted.toString());
+                System.out.println(sorted);
             } else if (str.startsWith("insertArr")) {
                 int n = Integer.parseInt(str.split(" ")[1]);
                 int[] arr = new int[n];
