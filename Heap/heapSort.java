@@ -12,6 +12,26 @@ public class heapSort {
             data = new ArrayList<>();
             size = 0;
         }
+        // if given an array & to perfrom insertion in one go we can modify our
+        // constructor & make insertion in O(n) - instead of calling upheapify while
+        // inserting, we'll call downheapify - so we'll get efficient time complexity of
+        // O(n) for inserting n elements & O(1) for inserting one element otherwise
+        // we've to insert all elements one by one in O(nlogn)
+
+        // ! MODIFIED Constructor
+        public PriorityQueue(int[] arr) {
+            data = new ArrayList<>();
+            for (int val : arr) {
+                size++;
+                data.add(val);
+            }
+            // now these element inserted above are not following heap order property - to
+            // do so, we'll perfrom downheapify from last level (accurately last 2nd level
+            // cos last/leaf level doesn't have any children to peform downheapify)
+            for (int i = (size() - 1) / 2; i >= 0; i--) {
+                downHeapify(i);
+            }
+        }
 
         public void add(int val) {
             // O(logn) - to insert an element
@@ -135,6 +155,13 @@ public class heapSort {
             } else if (str.startsWith("heapSortIn")) {
                 ArrayList<Integer> sorted = qu.heapSortIn();
                 System.out.println(sorted.toString());
+            } else if (str.startsWith("insertArr")) {
+                int n = Integer.parseInt(str.split(" ")[1]);
+                int[] arr = new int[n];
+                String[] values = br.readLine().split(" ");
+                for (int i = 0; i < n; i++)
+                    arr[i] = Integer.parseInt(values[i]);
+                qu = new PriorityQueue(arr);
             } else
                 System.out.println("Write valid command!");
             str = br.readLine();
