@@ -6,19 +6,36 @@ public class CCinOurPQ {
     // khud ki PQ implement
     public static class PriorityQueue<T> {
         ArrayList<T> data;
+        Comparator comp;
 
         public PriorityQueue() {
             data = new ArrayList<>();
+            this.comp = null;
+        }
+
+        public PriorityQueue(Comparator comp) {
+            data = new ArrayList<>();
+            this.comp = comp;
         }
 
         public boolean isSmaller(int i, int j) {
-            // type cast to comparable
-            Comparable ith = (Comparable) data.get(i);
-            Comparable jth = (Comparable) data.get(j);
-            if ((ith.compareTo(jth)) < 0)
-                return true;
-            else
-                return false;
+            if (comp == null) {
+                // type cast to comparable
+                Comparable ith = (Comparable) data.get(i);
+                Comparable jth = (Comparable) data.get(j);
+                if ((ith.compareTo(jth)) < 0)
+                    return true;
+                else
+                    return false;
+            } else {
+                // if any comparator
+                T ith = data.get(i);
+                T jth = data.get(j);
+                if (comp.compare(ith, jth) < 0)
+                    return true;
+                else
+                    return false;
+            }
         }
 
         // add
@@ -107,8 +124,22 @@ public class CCinOurPQ {
         }
     }
 
+    static class StudentHTComparator implements Comparator<Student> {
+        public int compare(Student s1, Student s2) {
+            return s1.ht - s2.ht;
+        }
+    }
+
+    static class StudentWTComparator implements Comparator<Student> {
+        public int compare(Student s1, Student s2) {
+            return s1.wt - s2.wt;
+        }
+    }
+
     public static void main(String[] args) throws Exception {
-        PriorityQueue<Student> pq = new PriorityQueue<>();
+        // PriorityQueue<Student> pq = new PriorityQueue<>();
+        PriorityQueue<Student> pq = new PriorityQueue<>(new StudentHTComparator());
+        // PriorityQueue<Student> pq = new PriorityQueue<>(new StudentWTComparator());
         pq.add(new Student(1, 180, 70));
         pq.add(new Student(3, 157, 60));
         pq.add(new Student(5, 170, 90));
