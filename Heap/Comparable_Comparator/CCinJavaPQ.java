@@ -2,6 +2,7 @@
 //! Comparable and Comparator in Java's PQ
 import java.util.*;
 import java.io.*;
+import java.nio.channels.ClosedSelectorException;
 
 public class CCinJavaPQ {
 
@@ -34,8 +35,27 @@ public class CCinJavaPQ {
         }
     }
 
+    // comparator intefaces - inke lie ek alag classs ko implement krna padta hai -
+    // it has compare method
+    static class StudentHTComparator implements Comparator<Student> {
+        public int compare(Student s1, Student s2) {
+            return s1.ht - s2.ht;
+        }
+    }
+
+    static class StudentWTComparator implements Comparator<Student> {
+        public int compare(Student s1, Student s2) {
+            return s1.wt - s2.wt;
+        }
+    }
+
     public static void main(String[] args) throws Exception {
-        PriorityQueue<Student> pq = new PriorityQueue<>();
+        // this will compare bydefault acc to comparable - rno
+        // PriorityQueue<Student> pq = new PriorityQueue<>();
+        // this will compare acc to heights
+        PriorityQueue<Student> pq = new PriorityQueue<>(new StudentHTComparator());
+        // this will compare acc to heights
+        PriorityQueue<Student> pq = new PriorityQueue<>(new StudentWTComparator());
         pq.add(new Student(1, 180, 70));
         pq.add(new Student(3, 157, 60));
         pq.add(new Student(5, 170, 90));
