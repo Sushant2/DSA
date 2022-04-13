@@ -1,17 +1,28 @@
 import java.util.*;
 import java.io.*;
 
+//to make our own code support comparable, we gotta make it generic first
 public class CCinOurPQ {
     // khud ki PQ implement
-    public static class PriorityQueue {
-        ArrayList<Integer> data;
+    public static class PriorityQueue<T> {
+        ArrayList<T> data;
 
         public PriorityQueue() {
             data = new ArrayList<>();
         }
 
+        public boolean isSmaller(int i, int j) {
+            // type cast to comparable
+            Comparable ith = (Comparable) data.get(i);
+            Comparable jth = (Comparable) data.get(j);
+            if ((ith.compareTo(jth)) < 0)
+                return true;
+            else
+                return false;
+        }
+
         // add
-        public void add(int val) {
+        public void add(T val) {
             data.add(val);
             // to maintain heap order property
             // do upheapify while insertion
@@ -19,6 +30,8 @@ public class CCinOurPQ {
         }
 
         public void upHeapify(int idx) {
+            if (idx == 0)
+                return;
             int parIdx = (idx - 1) / 2;
             if (isSmaller(idx, parIdx)) {
                 swap(idx, parIdx);
@@ -26,27 +39,21 @@ public class CCinOurPQ {
             }
         }
 
-        public boolean isSmaller(int i, int j) {
-            if (data.get(i) < data.get(j))
-                return true;
-            return false;
-        }
-
         public void swap(int i, int j) {
-            int temp = data.get(i);
-            data.set(i, data.get(j));
-            data.set(j, temp);
+            T ith = data.get(i);
+            T jth = data.get(j);
+            data.set(i, jth);
+            data.set(j, ith);
         }
 
         // remove
-        public int remove() {
-            if (size() == 0) {
+        public T remove() {
+            if (this.size() == 0) {
                 System.out.println("Underflow!");
-                return -1;
+                return null;
             }
-            int val = peek();
             swap(0, size() - 1);
-            data.remove(size() - 1);
+            T val = data.remove(size() - 1);
             downHeapify(0);
             return val;
         }
@@ -66,10 +73,10 @@ public class CCinOurPQ {
         }
 
         // peek
-        public int peek() {
+        public T peek() {
             if (size() == 0) {
                 System.out.println("Underflow!");
-                return -1;
+                return null;
             }
             return data.get(0);
         }
@@ -79,14 +86,36 @@ public class CCinOurPQ {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        int[] arr = { 10, 2, 17, 3, 9, 18, 22 };
-        PriorityQueue pq = new PriorityQueue();
-        for (int val : arr)
-            pq.add(val);
+    // our Student class
+    static class Student implements Comparable<Student> {
+        int rno;
+        int ht;
+        int wt;
 
-        while (pq.size() > 0) {
-            System.out.print(pq.remove() + " ");
+        Student(int rno, int ht, int wt) {
+            this.rno = rno;
+            this.ht = ht;
+            this.wt = wt;
         }
+
+        public int compareTo(Student other) {
+            return this.rno - other.rno;
+        }
+
+        public String toString() {
+            return "rno= " + this.rno + ", ht= " + this.ht + ", wt= " + this.wt;
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        PriorityQueue<Student> pq = new PriorityQueue<>();
+        pq.add(new Student(1, 180, 70));
+        pq.add(new Student(3, 157, 60));
+        pq.add(new Student(5, 170, 90));
+        pq.add(new Student(12, 145, 88));
+        pq.add(new Student(16, 134, 75));
+
+        while (pq.size() > 0)
+            System.out.println(pq.remove() + " ");
     }
 }
