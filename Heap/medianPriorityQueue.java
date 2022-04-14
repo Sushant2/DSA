@@ -3,6 +3,11 @@ import java.io.*;
 
 public class medianPriorityQueue {
 
+    // we need 2 PQ - left and rigth
+    // left will maintain - smaller half of data(MAX HEAP)
+    // right will maintain - larger half of data(MIN HEAP)
+    // & maintain gap <=1, if gap >= 2, then we'll not to find median
+
     public static class MedianPriorityQueue {
         PriorityQueue<Integer> left;
         PriorityQueue<Integer> right;
