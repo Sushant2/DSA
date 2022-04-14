@@ -19,5 +19,5 @@
   - [x] Binary Tree
   - [x] Binary Search Tree
 - [ ] Graphs
-- [ ] Hashmap And Heap
+- [x] Hashmap And Heap
 - [ ] Dynamic Programming And Grredy
