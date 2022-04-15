@@ -11,7 +11,7 @@ public class _01knapsackRecursive {
         // faith
         // if wt[n] <= W then add or not add
         if (wt[n - 1] <= W)
-            return Math.max(val[n - 1] + knapSack(wt, val, W - val[n - 1], n - 1), knapSack(wt, val, W, n - 1));
+            return Math.max(val[n - 1] + knapSack(wt, val, W - wt[n - 1], n - 1), knapSack(wt, val, W, n - 1));
         else
             return knapSack(wt, val, W, n - 1);
     }
@@ -29,7 +29,7 @@ public class _01knapsackRecursive {
             val[i] = Integer.parseInt(values[i]);
         int W = Integer.parseInt(br.readLine());
 
-        int maxProfit = knapSack(wt, val, W, n - 1);
+        int maxProfit = knapSack(wt, val, W, n);
         System.out.println(maxProfit);
     }
 }
