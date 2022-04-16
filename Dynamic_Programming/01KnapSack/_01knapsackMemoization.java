@@ -3,6 +3,7 @@ import java.io.*;
 
 public class _01knapsackMemoization {
 
+    // ! time complexity - O(n*W);
     public static int knapSackMemoization(int[] wt, int[] val, int W, int n, int[][] qb) {
         // base case
         // if items = 0 & weight of bag = 0 then maxProfit is also 0
