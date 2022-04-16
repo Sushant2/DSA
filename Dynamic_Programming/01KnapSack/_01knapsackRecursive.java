@@ -3,6 +3,7 @@ import java.io.*;
 
 public class _01knapsackRecursive {
 
+    // ! time complexity - O(2^n)
     public static int knapSack(int[] wt, int[] val, int W, int n) {
         // base case
         // if items = 0 & weight of bag = 0 then maxProfit is also 0
