@@ -41,11 +41,36 @@ public class climbingStairs {
         return allPaths;
     }
 
+    // ! TABULATION - ITERATION
+    // tabulation steps -
+    // 1. create storage & assign meaning to each cell(call ko menaing - cell m ye
+    // store krnge ki us cell se zero/0 jane k kitne raste h)
+    // 2. identify direction of problem(choti prblm kis taraf, badi prblm kis taraf)
+    // 0->0 choti prblm, 6->0 badi prblm
+    // 3. travel & solve
+    public static int climbStairsTabulation(int n) {
+        int[] dp = new int[n + 1];
+        dp[0] = 1; // 0->0 jane ka 1 raste h
+        for (int i = 1; i <= n; i++) {
+            if (i == 1)
+                // i=1, ke lie dp[i-2] & dp[i-3] out of table chale jayenge
+                dp[i] = dp[i - 1];
+            else if (i == 2)
+                // i=2, ke lie dp[i-3] out of table chale jayenge
+                dp[i] = dp[i - 1] + dp[i - 2];
+            else
+                // i is 3 onwards
+                dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
+        }
+        return dp[n];
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         // int paths = climbStairs(n);
-        int paths = climbStairsMemoized(n, new int[n + 1]);
+        // int paths = climbStairsMemoized(n, new int[n + 1]);
+        int paths = climbStairsTabulation(n);
         System.out.println(paths);
     }
 }
