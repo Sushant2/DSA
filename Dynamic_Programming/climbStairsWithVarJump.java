@@ -9,7 +9,6 @@ public class climbStairsWithVarJump {
             return 0;
         if (i == n)
             return 1;
-        System.out.println("Hello " + i);
         int paths = 0;
         for (int j = 1; j <= arr[i]; j++) {
             paths += recursive(i + j, n, arr);
@@ -25,7 +24,6 @@ public class climbStairsWithVarJump {
             return 1;
         if (qb[i] != 0)
             return qb[i];
-        System.out.println("Hello " + i);
 
         int paths = 0;
         for (int j = 1; j <= arr[i]; j++)
@@ -34,9 +32,25 @@ public class climbStairsWithVarJump {
         return paths;
     }
 
+    public static int tabulation(int n, int[] arr) {
+        // step 1 : create storage & assign meaning to cells
+        int[] dp = new int[n + 1];
+        // recursion/memoization base case is initilazation in tabulation
+        dp[n] = 1;
+        // step 2 : direction of problem
+        // choti problem (n->n tho 1 path), badi problem(0->n then x paths)
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = 1; j <= arr[i] && i + j < dp.length; j++) {
+                dp[i] += dp[i + j];
+            }
+        }
+        return dp[0];
+    }
+
     public static int climbStairsJumps(int n, int[] arr) {
         // return recursive(0, n, arr);
-        return memoization(0, n, arr, new int[n + 1]);
+        // return memoization(0, n, arr, new int[n + 1]);
+        return tabulation(n, arr);
     }
 
     public static void main(String[] args) throws Exception {
