@@ -13,7 +13,7 @@ public class climbStairsWithMinMoves {
             int ans = recursive(i + j, n, arr);
             // jab koi na koi move aa rha ho tab hi min check krenge
             if (ans != Integer.MAX_VALUE)
-                min = Math.min(min, ans + 1);
+                min = Math.min(min, ans + 1); 
         }
         return min;
     }
