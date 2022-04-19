@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class subsetSumProblem {
@@ -20,8 +21,29 @@ public class subsetSumProblem {
         return left || right;
     }
 
+    public static int memoized(int n, int sum, int[] arr, int[][] qb) {
+        // base case
+        if (sum == 0)
+            return 1;
+        if (n == 0)
+            return 0;
+        // if answer to the problem already exist in the qb
+        if (qb[n - 1][sum] != -1)
+            return qb[n - 1][sum];
+        // if last ele is greater than sum
+        if (arr[n - 1] > sum)
+            return qb[n - 1][sum] = memoized(n - 1, sum, arr, qb);
+        else {
+            if()
+        }
+    }
+
     public static boolean findSubsetSum(int sum, int[] arr) {
-        return recursive(arr.length - 1, sum, arr);
+        // return recursive(arr.length - 1, sum, arr);
+        int[][] qb = new int[arr.length + 1][sum + 1];
+        Arrays.fill(qb, -1);
+        int ans = memoized(arr.length - 1, sum, arr, qb);
+        return ans == 1 ? true : false;
     }
 
     public static void main(String[] args) throws Exception {
