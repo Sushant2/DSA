@@ -34,7 +34,10 @@ public class subsetSumProblem {
         if (arr[n - 1] > sum)
             return qb[n - 1][sum] = memoized(n - 1, sum, arr, qb);
         else {
-            if()
+            if (memoized(n - 1, sum - arr[n - 1], arr, qb) != 0 || memoized(n - 1, sum, arr, qb))
+                return qb[n - 1][sum] = 1;
+            else
+                return qb[n - 1][sum] = 0;
         }
     }
 
