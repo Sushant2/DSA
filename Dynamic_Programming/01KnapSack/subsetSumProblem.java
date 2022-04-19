@@ -15,6 +15,7 @@ public class subsetSumProblem {
         // ! ignore, if last element is greater than sum
         if (arr[n - 1] > sum)
             return recursive(n - 1, sum, arr);
+        System.out.println("Hello" + n);
         boolean left = recursive(n - 1, sum - arr[n - 1], arr);
         boolean right = recursive(n - 1, sum, arr);
 
@@ -31,10 +32,11 @@ public class subsetSumProblem {
         if (qb[n - 1][sum] != -1)
             return qb[n - 1][sum];
         // if last ele is greater than sum
+        System.out.println("Hello " + n);
         if (arr[n - 1] > sum)
             return qb[n - 1][sum] = memoized(n - 1, sum, arr, qb);
         else {
-            if (memoized(n - 1, sum - arr[n - 1], arr, qb) != 0 || memoized(n - 1, sum, arr, qb))
+            if (memoized(n - 1, sum - arr[n - 1], arr, qb) != 0 || memoized(n - 1, sum, arr, qb) != 0)
                 return qb[n - 1][sum] = 1;
             else
                 return qb[n - 1][sum] = 0;
@@ -44,7 +46,9 @@ public class subsetSumProblem {
     public static boolean findSubsetSum(int sum, int[] arr) {
         // return recursive(arr.length - 1, sum, arr);
         int[][] qb = new int[arr.length + 1][sum + 1];
-        Arrays.fill(qb, -1);
+        for (int i = 0; i < arr.length + 1; i++)
+            for (int j = 0; j < sum + 1; j++)
+                qb[i][j] = -1;
         int ans = memoized(arr.length - 1, sum, arr, qb);
         return ans == 1 ? true : false;
     }
