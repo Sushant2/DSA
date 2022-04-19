@@ -43,14 +43,45 @@ public class subsetSumProblem {
         }
     }
 
+    public static boolean tabulation(int n, int[] arr, int sum) {
+        // step 1. create storage and assign meaning to cells
+        boolean[][] dp = new boolean[n + 1][sum + 1];
+        // initlise it rows having all true & all columns having false, except dp[0][0]
+        // will have true;
+        for (int i = 0; i < n + 1; i++) {
+            for (int j = 0; j < sum + 1; j++) {
+                if (i == 0)
+                    dp[i][j] = false;
+                if (j == 0)
+                    dp[i][j] = true;
+            }
+        }
+        // meaning of cell - dp[i][j] wil store that, for that n elements, the sum exist
+        // or not, if there exists a subset from n elements then true, else false
+        // step 2. direction of problem -
+        // choti prblm - dp[0][0], badi problem dp[n][sum]
+        // step 3 travel and solve
+        for (int i = 1; i < n + 1; i++) {
+            for (int j = 1; j < sum + 1; j++) {
+                if (arr[i - 1] <= j)
+                    dp[i][j] = dp[i - 1][j - arr[i - 1]] || dp[i - 1][j];
+                else
+                    dp[i][j] = dp[i - 1][j];
+            }
+        }
+        return dp[n][sum];
+    }
+
     public static boolean findSubsetSum(int sum, int[] arr) {
         // return recursive(arr.length - 1, sum, arr);
-        int[][] qb = new int[arr.length + 1][sum + 1];
-        for (int i = 0; i < arr.length + 1; i++)
-            for (int j = 0; j < sum + 1; j++)
-                qb[i][j] = -1;
-        int ans = memoized(arr.length - 1, sum, arr, qb);
-        return ans == 1 ? true : false;
+        // int[][] qb = new int[arr.length + 1][sum + 1];
+        // for (int i = 0; i < arr.length + 1; i++)
+        // for (int j = 0; j < sum + 1; j++)
+        // qb[i][j] = -1;
+        // int ans = memoized(arr.length - 1, sum, arr, qb);
+        // return ans == 1 ? true : false;
+
+        return tabulation(arr.length, arr, sum);
     }
 
     public static void main(String[] args) throws Exception {
