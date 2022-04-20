@@ -39,6 +39,41 @@ public class minCostPath {
         return arr[sr][sc] + min;
     }
 
+    public static int tabulation(int[][] arr) {
+        // step 1. create storage & assign meaning to cell
+        int[][] dp = new int[arr.length][arr[0].length];
+        // meaning of cell - kia cell will store the min cost of path from that cell to
+        // destination cell
+        // step 2. direction of problem
+        // choti problem - destination cell se destination cell pr jana, badi problem -
+        // (0,0) se destination cell par jana
+        // step 3. travel & solve
+
+        // ! we've divided the dp 2d array into 4 parts -
+        // 1. last cell ko alag treat - direct value daldenge from arr
+        // 2. last row ko alag treat - vertical nhi jaa skte
+        // 3. last column ko alag treat - horizontal nhi jaa skte
+        // 4. rest of it ko alag treat
+
+        for (int i = dp.length - 1; i >= 0; i--) {
+            for (int j = dp[0].length - 1; j >= 0; j--) {
+                // last cell
+                if (i == dp.length - 1 && j == dp[0].length - 1)
+                    dp[i][j] = arr[i][j];
+                // last row
+                else if (i == dp.length - 1)
+                    dp[i][j] = dp[i][j + 1] + arr[i][j];
+                // last column
+                else if (j == dp[0].length - 1)
+                    dp[i][j] = dp[i + 1][j] + arr[i][j];
+                // rest of the 2d dp table
+                else
+                    dp[i][j] = Math.min(dp[i + 1][j], dp[i][j + 1]) + arr[i][j];
+            }
+        }
+        return dp[0][0];
+    }
+
     public static int minCostInMaze(int[][] arr) {
         // return recursive(0, 0, arr.length - 1, arr[0].length - 1, arr);
         int[][] qb = new int[arr.length + 1][arr[0].length + 1];
@@ -47,7 +82,8 @@ public class minCostPath {
                 qb[i][j] = -1;
             }
         }
-        return memoized(0, 0, arr.length - 1, arr[0].length - 1, arr, qb);
+        // return memoized(0, 0, arr.length - 1, arr[0].length - 1, arr, qb);
+        return tabulation(arr);
     }
 
     public static void main(String[] args) throws Exception {
