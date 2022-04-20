@@ -26,6 +26,24 @@ public class goldmine {
         return arr[sr][sc] + maxGold;
     }
 
+    public static int memoized(int[][] arr, int sr, int sc, int[][] qb) {
+        // -ve base case
+        if (sr < 0 || sr > arr.length - 1)
+            return Integer.MIN_VALUE;
+        if (sc == arr[0].length - 1)
+            return arr[sr][sc];
+        // if answer to that subproblem is already present in the qb
+        if (qb[sr][sc] != -1)
+            return qb[sr][sc];
+
+        int rup = memoized(arr, sr - 1, sc + 1, qb);
+        int right = memoized(arr, sr, sc + 1, qb);
+        int rdown = memoized(arr, sr + 1, sc + 1, qb);
+
+        int maxGold = max(rup, right, rdown);
+        qb[sr][sc] = maxGold + arr[sr][sc];
+        return qb[sr][sc];
+    }
 
     public static int maxGold(int[][] arr) {
         int maxGold = Integer.MIN_VALUE;
