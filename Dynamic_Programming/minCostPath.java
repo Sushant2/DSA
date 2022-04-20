@@ -20,8 +20,34 @@ public class minCostPath {
         return arr[sr][sc] + min;
     }
 
+    public static int memoized(int sr, int sc, int dr, int dc, int[][] arr, int[][] qb) {
+        // -ve base case
+        if (sr > dr || sc > dc)
+            return Integer.MAX_VALUE;
+        // +ve base case
+        if (sr == dr && sc == dc)
+            return arr[sr][sc];
+        // if answer to that subproblem already exists in qb
+        if (qb[sr][sc] != -1)
+            return qb[sr][sc];
+
+        int leftMin = memoized(sr + 1, sc, dr, dc, arr, qb);
+        int rightMin = memoized(sr, sc + 1, dr, dc, arr, qb);
+        int min = Math.min(leftMin, rightMin);
+        qb[sr][sc] = min + arr[sr][sc];
+
+        return arr[sr][sc] + min;
+    }
+
     public static int minCostInMaze(int[][] arr) {
-        return recursive(0, 0, arr.length - 1, arr[0].length - 1, arr);
+        // return recursive(0, 0, arr.length - 1, arr[0].length - 1, arr);
+        int[][] qb = new int[arr.length + 1][arr[0].length + 1];
+        for (int i = 0; i < arr.length + 1; i++) {
+            for (int j = 0; j < arr[0].length + 1; j++) {
+                qb[i][j] = -1;
+            }
+        }
+        return memoized(0, 0, arr.length - 1, arr[0].length - 1, arr, qb);
     }
 
     public static void main(String[] args) throws Exception {
