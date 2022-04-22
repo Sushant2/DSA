@@ -28,6 +28,9 @@ public class coinChangeCombination {
         if (n <= 0 && amt >= 1)
             return 0;
 
+        if (qb[n][amt] != -1)
+            return qb[n][amt];
+
         // include that coin
         if (arr[n - 1] <= amt)
             return qb[n][amt] = memoized(arr, n, amt - arr[n - 1], qb) + memoized(arr, n - 1, amt, qb);
@@ -39,6 +42,8 @@ public class coinChangeCombination {
     public static int coinChange(int[] arr, int n, int amt) {
         // return recursive(arr, n, amt);
         int[][] qb = new int[n + 1][amt + 1];
+        for (int[] x : qb)
+            Arrays.fill(x, -1);
         return memoized(arr, n, amt, qb);
     }
 
