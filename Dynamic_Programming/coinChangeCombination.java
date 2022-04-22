@@ -56,6 +56,9 @@ public class coinChangeCombination {
         // ! we'll start inner loop from arr[i], cos usse pahle hum kuch pay hi nhi
         // krpayemge
 
+        // Pick all coins one by one and update the table[]
+        // values after the index greater than or equal to
+        // the value of the picked coin
         for (int i = 0; i < arr.length; i++) {
             for (int j = arr[i]; j < dp.length; j++) {
                 dp[j] += dp[j - arr[i]];
