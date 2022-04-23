@@ -39,11 +39,32 @@ public class coinChangePermutation {
         return qb[amt] = res;
     }
 
+    public static int tabulation(int[] coins, int n, int amount) {
+        // step 1 : create storage & assign meaning to cells
+        int[] dp = new int[amount + 1];
+        // meaning to cell : dp[i] will store, all permutaion to pay i amount by each
+        // coin
+        dp[0] = 1; // 0 k lie ek rasta to hoga hi
+        // step 2 : direction of problem
+        // choti problem - dp[0], & badi problem dp[amt]
+        // step 3 : travel & solve
+        // outer loop - for every amt
+        // inner loop - for each coin
+        for (int amt = 1; amt < dp.length; amt++) {
+            for (int coin : coins)
+                if (coin <= amt)
+                    dp[amt] += dp[amt - coin];
+        }
+
+        return dp[amount];
+    }
+
     public static int coinChangePerm(int[] arr, int n, int amt) {
         // return recursive(arr, amt);
         int[] qb = new int[amt + 1];
         Arrays.fill(qb, -1);
-        return memoized(arr, amt, qb);
+        // return memoized(arr, amt, qb);
+        return tabulation(arr, n, amt);
     }
 
     public static void main(String[] args) throws Exception {
