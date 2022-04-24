@@ -32,10 +32,40 @@ public class zeroOneKnapSack {
         }
     }
 
+    public static int tabulation(int[] wt, int[] val, int W, int n) {
+        // step 1: create storage & assign meaning
+        int[][] dp = new int[n + 1][W + 1];
+        // meaning - dp[i][j] - j balls ke lie i tak ki team kitne runs score kr skti h
+        // step 2: direction of problem
+        // choti - dp[0][0] & badi problem - dp[n][W]
+        // step 3: travel & solve
+        // 0th row & 0th row m already 0 pada hai, tho loop i =1, j=1 se chalenge
+        for (int i = 1; i < dp.length; i++) {
+            for (int j = 1; j < dp[0].length; j++) {
+                // if balls are sufficient -
+                // wt[i-1] isiliye kyoki dp array ka i is corresponds to items arrays of i-1
+                if (j >= wt[i - 1]) {
+                    // then we'll do batting
+                    int remW = j - wt[i - 1]; // remaining balls
+                    // wehn i bat & it's score is greater than if he does't bat
+                    if (dp[i - 1][remW] + val[i - 1] > dp[i - 1][j])
+                        dp[i][j] = dp[i - 1][remW] + val[i - 1];
+                    else
+                        // wehn i doesn't bat
+                        dp[i][j] = dp[i - 1][j];
+                } else
+                    // when balls are not suffcient, he can't do batting
+                    dp[i][j] = dp[i - 1][j];
+            }
+        }
+        return dp[n][W];
+    }
+
     public static int _01knapSack(int[] wt, int[] val, int W, int n) {
         // return recursive(wt, val, W, n);
         int[][] qb = new int[n + 1][W + 1];
-        return memoized(wt, val, W, n, qb);
+        // return memoized(wt, val, W, n, qb);
+        return tabulation(wt, val, W, n);
     }
 
     public static void main(String[] args) throws Exception {
