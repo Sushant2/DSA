@@ -42,7 +42,7 @@ public class arrangeBuildings {
         long oldB = 1;
         long oldS = 1;
         for (int i = 2; i <= n; i++) {
-            long newB = oldB;
+            long newB = oldS;
             long newS = oldB + oldS;
 
             oldS = newS;
