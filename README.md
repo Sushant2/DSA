@@ -20,4 +20,4 @@
   - [x] Binary Search Tree
 - [ ] Graphs
 - [x] Hashmap And Heap
-- [ ] Dynamic Programming And Grredy
+- [ ] Dynamic Programming And Greedy
