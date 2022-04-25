@@ -38,7 +38,21 @@ public class arrangeBuildings {
             return qb[last][n] = memoized(n - 1, 0, qb);
     }
 
-    public static int arrangement(int n) {
+    public static long tabulation(int n) {
+        long oldB = 1;
+        long oldS = 1;
+        for (int i = 2; i <= n; i++) {
+            long newB = oldB;
+            long newS = oldB + oldS;
+
+            oldS = newS;
+            oldB = newB;
+        }
+        long total = oldS + oldB;
+        return total * total;
+    }
+
+    public static long arrangement(int n) {
         // space means = 0, building means = 1
         // int ans = recursive(n, 0);
         int[][] qb = new int[2][n];
@@ -46,14 +60,15 @@ public class arrangeBuildings {
             Arrays.fill(x, -1);
         qb[0][0] = 1;
         qb[1][0] = 1;
-        int ans = memoized(n - 1, 0, qb) + memoized(n - 1, 1, qb);
-        return ans * ans;
+        // int ans = memoized(n - 1, 0, qb) + memoized(n - 1, 1, qb);
+        long ans = tabulation(n);
+        return ans;
     }
 
     public static void main(String[] args) throws Exception {
         Scanner scn = new Scanner(System.in);
         int n = scn.nextInt();
-        int ans = arrangement(n);
+        long ans = arrangement(n);
         System.out.println(ans);
     }
 }
