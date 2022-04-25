@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.reflect.Member;
 import java.util.*;
 
 public class arrangeBuildings {
@@ -19,9 +20,33 @@ public class arrangeBuildings {
             return recursive(n - 1, 0);
     }
 
+    public static int memoized(int n, int last, int[][] qb) {
+        if (n == 0)
+            return qb[last][n] = 0;
+        if (n == 1) {
+            if (last == 0)
+                return qb[last][n] = 2;
+            if (last == 1)
+                return qb[last][n] = 1;
+        }
+        // if question to that answer is already present in qb
+        if (qb[last][n] != -1)
+            return qb[last][n];
+        if (last == 0)
+            return qb[last][n] = memoized(n - 1, 0, qb) + memoized(n - 1, 1, qb);
+        else
+            return qb[last][n] = memoized(n - 1, 0, qb);
+    }
+
     public static int arrangement(int n) {
         // space means = 0, building means = 1
-        int ans = recursive(n, 0);
+        // int ans = recursive(n, 0);
+        int[][] qb = new int[2][n];
+        for (int[] x : qb)
+            Arrays.fill(x, -1);
+        qb[0][0] = 1;
+        qb[1][0] = 1;
+        int ans = memoized(n - 1, 0, qb) + memoized(n - 1, 1, qb);
         return ans * ans;
     }
 
