@@ -3,6 +3,8 @@ import java.util.*;
 //count all binary strings of length n w/o consecutive 0s
 
 public class countBinaryStrings {
+
+    //time comp : O(2^n), space comp : O(1)
     public static int recursive(int n, int last) {
         // base case
         if (n == 0)
@@ -19,6 +21,8 @@ public class countBinaryStrings {
             return recursive(n - 1, 1);
 
     }
+
+    //time comp : O(n), space comp : O(n) =~ O(n*2)
 
     public static int memoized(int n, int last, int[][] qb) {
         if (n == 0)
