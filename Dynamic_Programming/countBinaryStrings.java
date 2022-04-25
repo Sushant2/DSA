@@ -4,7 +4,7 @@ import java.util.*;
 
 public class countBinaryStrings {
 
-    //time comp : O(2^n), space comp : O(1)
+    // time comp : O(2^n), space comp : O(1)
     public static int recursive(int n, int last) {
         // base case
         if (n == 0)
@@ -22,7 +22,7 @@ public class countBinaryStrings {
 
     }
 
-    //time comp : O(n), space comp : O(n) =~ O(n*2)
+    // time comp : O(n), space comp : O(n) =~ O(n*2)
 
     public static int memoized(int n, int last, int[][] qb) {
         if (n == 0)
@@ -42,6 +42,28 @@ public class countBinaryStrings {
             return qb[last][n] = memoized(n - 1, 1, qb);
     }
 
+    public static int tabulation(int n) {
+        // using two 1-d arrays or a 2d arrays
+        // step 1 : create storage & assign meaning to cells
+        // dp0 : arrays having count of numbers ending with 0
+        int[] dp0 = new int[n + 1];
+        int[] dp1 = new int[n + 1];
+
+        // by default dp0[0] & dp1[0] is zero, & dp0[1] ,dp1[1] are also trivial cases,
+        // so we prefilled
+        dp0[1] = 1;
+        dp1[1] = 1;
+
+        // meaning cell : dp0[i] will store count of number of binary numbers ending
+        // with 0
+        // dp1[i] will store count of number of binary numbers ending with 1
+        for (int i = 2; i <= n; i++) {
+            dp0[i] = dp1[i - 1];
+            dp1[i] = dp0[i - 1] + dp1[i - 1];
+        }
+        return dp0[n] + dp1[n];
+    }
+
     public static int countBStrings(int n) {
         // initially last digit taken as 1, cos it'll give 2 choices
         // return recursive(n, 1);
@@ -52,7 +74,9 @@ public class countBinaryStrings {
         qb[0][0] = 1;
         qb[1][0] = 1;
 
-        return memoized(n - 1, 1, qb) + memoized(n - 1, 0, qb);
+        // return memoized(n - 1, 1, qb) + memoized(n - 1, 0, qb);
+
+        return tabulation(n);
 
     }
 
