@@ -57,11 +57,30 @@ public class countBinaryStrings {
         // meaning cell : dp0[i] will store count of number of binary numbers ending
         // with 0
         // dp1[i] will store count of number of binary numbers ending with 1
+
+        // step 2 :direction of problem choti prblm dp0[0] dp1[0] & badi problem dp0[n],
+        // dp1[n]
+
+        // step 3: travel & solve
         for (int i = 2; i <= n; i++) {
             dp0[i] = dp1[i - 1];
             dp1[i] = dp0[i - 1] + dp1[i - 1];
         }
         return dp0[n] + dp1[n];
+    }
+
+    public static int tabulationOpti(int n) {
+        int oldCZeroes = 1;
+        int oldCOnes = 1;
+
+        for (int i = 2; i <= n; i++) {
+            int newCZeroes = oldCOnes;
+            int newCOnes = oldCOnes + oldCZeroes;
+            oldCOnes = newCOnes;
+            oldCZeroes = newCZeroes;
+        }
+
+        return oldCOnes + oldCZeroes;
     }
 
     public static int countBStrings(int n) {
@@ -76,7 +95,8 @@ public class countBinaryStrings {
 
         // return memoized(n - 1, 1, qb) + memoized(n - 1, 0, qb);
 
-        return tabulation(n);
+        // return tabulation(n);
+        return tabulationOpti(n);
 
     }
 
