@@ -17,8 +17,34 @@ public class countEncodings {
         return sum;
     }
 
+    public static int memoized(char[] str, int n, int[] qb) {
+        if (n == 0 || n == 1)
+            return 1;
+        if (str[0] == '0')
+            return 0;
+        if (qb[n] != -1)
+            return qb[n];
+        int sum = 0;
+        // consider for 1 digit ele
+        if (str[n - 1] >= '1' && str[n - 1] <= '9') {
+            sum = memoized(str, n - 1, qb);
+        }
+        // consider for 2 digit ele
+        if (str[n - 2] == '1' || str[n - 2] == '2' && str[n - 1] <= '6') {
+            sum += memoized(str, n - 2, qb);
+        }
+        return qb[n] = sum;
+    }
+
     public static int decodeWays(char[] str, int n) {
-        return recursive(str, n);
+        if (n == 0 || (n == 1 && str[0] == '0'))
+            return 0;
+        // return recursive(str, n);
+        int[] qb = new int[n + 1];
+        Arrays.fill(qb, -1);
+        qb[0] = 0;
+        qb[1] = 1;
+        return memoized(str, n, qb);
     }
 
     public static void main(String[] args) throws Exception {
