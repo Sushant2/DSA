@@ -3,7 +3,9 @@ import java.util.*;
 
 public class countSubsequencesOfFormaibjck {
 
+    // time compl : O(n) , space comp : O(1)
     public static int countSubsequences(String s) {
+        // initally patterns of a, ab, & abc all are zero/0
         int a = 0;
         int ab = 0;
         int abc = 0;
