@@ -29,7 +29,7 @@ public class maximumSumNonAdjacentElements {
         return Math.max(incl, excl);
     }
 
-    // time comp : O(n), space comp : O(n)
+    // ! time comp : O(n), space comp : O(n)
     public static int memoized(int[] arr, int n, int[] qb) {
         if (n < 0)
             return 0;
@@ -43,6 +43,7 @@ public class maximumSumNonAdjacentElements {
         return result;
     }
 
+    // ! time comp : O(n), space : O(n)
     public static int tabulation(int[] arr, int n) {
         // step 1 : create storage & assign meaning to cells
         // meaning : dp[0][i] stores maximum subsequencessum till ith index with arr[i]
@@ -55,12 +56,32 @@ public class maximumSumNonAdjacentElements {
         dp[1][0] = 0; // excl
 
         // step2 :direction of problem - small : dp[0][0], large dp[1][n]
-        //step3 : travel & solve
+        // step3 : travel & solve
         for (int i = 1; i < n; i++) {
             dp[0][i] = dp[1][i - 1] + arr[i];
             dp[1][i] = Math.max(dp[0][i - 1], dp[1][i - 1]);
         }
         return Math.max(dp[0][n - 1], dp[1][n - 1]);
+    }
+
+    // ? As seen from the previous dynamic programming approach, the value of
+    // current states (for ith element) depends upon only two states of the previous
+    // element. So instead of creating a 2D array, we can use only two variables to
+    // store the two states of the previous element.
+
+    // ! time comp : O(n), space comp: O(1)
+    public static int tabulationWithSpaceOpt(int[] arr, int n) {
+        int inc = arr[0];
+        int exc = 0;
+        for (int i = 1; i < arr.length; i++) {
+            int newinc = exc + arr[i];
+            int newexc = Math.max(inc, exc);
+
+            inc = newinc;
+            exc = newexc;
+        }
+
+        return Math.max(inc, exc);
     }
 
     public static int maximumSumNonAdjacentELe(int[] arr, int n) {
@@ -69,7 +90,8 @@ public class maximumSumNonAdjacentElements {
         int[] qb = new int[n + 1];
         Arrays.fill(qb, -1);
         // return memoized(arr, n - 1, qb);
-        return tabulation(arr, n);
+        // return tabulation(arr, n);
+        return tabulationWithSpaceOpt(arr, n);
     }
 
     public static void main(String[] args) throws Exception {
