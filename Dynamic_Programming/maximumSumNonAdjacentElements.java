@@ -20,8 +20,18 @@ public class maximumSumNonAdjacentElements {
         return Math.max(incl, excl);
     }
 
+    public static int recursiveSimpleCode(int[] arr, int n) {
+        // base case
+        if (n < 0)
+            return 0;
+        int incl = recursiveSimpleCode(arr, n - 2) + arr[n];
+        int excl = recursiveSimpleCode(arr, n - 1);
+        return Math.max(incl, excl);
+    }
+
     public static int maximumSumNonAdjacentELe(int[] arr, int n) {
-        return recursive(arr, 0, n, Integer.MIN_VALUE);
+        // return recursive(arr, 0, n, Integer.MIN_VALUE);
+        return recursiveSimpleCode(arr, n - 1);
     }
 
     public static void main(String[] args) throws Exception {
