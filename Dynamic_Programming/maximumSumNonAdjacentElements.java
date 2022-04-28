@@ -29,9 +29,25 @@ public class maximumSumNonAdjacentElements {
         return Math.max(incl, excl);
     }
 
+    public static int memoized(int[] arr, int n, int[] qb) {
+        if (n < 0)
+            return 0;
+
+        if (qb[n] != -1)
+            return qb[n];
+        int incl = memoized(arr, n - 2, qb) + arr[n];
+        int excl = memoized(arr, n - 1, qb);
+        int result = Math.max(incl, excl);
+        qb[n] = result;
+        return result;
+    }
+
     public static int maximumSumNonAdjacentELe(int[] arr, int n) {
         // return recursive(arr, 0, n, Integer.MIN_VALUE);
-        return recursiveSimpleCode(arr, n - 1);
+        // return recursiveSimpleCode(arr, n - 1);
+        int[] qb = new int[n + 1];
+        Arrays.fill(qb, -1);
+        return memoized(arr, n - 1, qb);
     }
 
     public static void main(String[] args) throws Exception {
