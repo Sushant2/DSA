@@ -14,6 +14,9 @@ public class paintHouse2 {
         // that no two consecutive house have same color & the ending house is painted
         // with color j
 
+        // step2: direction of problem : d[0][0] is small & dp[n-1][m] is large
+
+        // step3: travel & solve
         // for each house starting from 2nd house
         for (int i = 1; i < dp.length; i++) {
             // for each colour
@@ -38,6 +41,7 @@ public class paintHouse2 {
         return min;
     }
 
+    // if we observe we only need two variables least & second least
     // time comp : O(2^n), space Comp : O(n^2)
     public static int tabulationWithOptiTime(int[][] arr) {
         int[][] dp = new int[arr.length][arr[0].length];
@@ -45,7 +49,38 @@ public class paintHouse2 {
         int sleast = Integer.MAX_VALUE;
 
         // find least, & second least of 1st row, while initialising first row
-        
+        for (int j = 0; j < arr[0].length; j++) {
+            dp[0][j] = arr[0][j];
+            if (arr[0][j] <= least) {
+                sleast = least;
+                least = arr[0][j];
+            } else if (arr[0][j] <= sleast)
+                sleast = arr[0][j];
+        }
+
+        // while traversing each houses, we've to update least & second least for each
+        // row
+        for (int i = 1; i < dp.length; i++) {
+            int newleast = Integer.MAX_VALUE;
+            int newsleast = Integer.MAX_VALUE;
+            for (int j = 0; j < dp[0].length; j++) {
+                if (least == dp[i - 1][j])
+                    dp[i][j] = sleast + arr[i][j];
+                else
+                    dp[i][j] = least + arr[i][j];
+
+                // update least & second least
+                if (dp[i][j] <= newleast) {
+                    newsleast = newleast;
+                    newleast = dp[i][j];
+                } else if (dp[i][j] <= newsleast)
+                    newsleast = dp[i][j];
+            }
+            // agli row mein jane se pahle, least & sleast ko update
+            least = newleast;
+            sleast = newsleast;
+        }
+        return least;
     }
 
     public static int paintHousemanyColours(int[][] arr) {
