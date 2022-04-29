@@ -38,8 +38,19 @@ public class paintHouse2 {
         return min;
     }
 
+    // time comp : O(2^n), space Comp : O(n^2)
+    public static int tabulationWithOptiTime(int[][] arr) {
+        int[][] dp = new int[arr.length][arr[0].length];
+        int least = Integer.MAX_VALUE;
+        int sleast = Integer.MAX_VALUE;
+
+        // find least, & second least of 1st row, while initialising first row
+        
+    }
+
     public static int paintHousemanyColours(int[][] arr) {
-        return tabulation(arr);
+        // return tabulation(arr);
+        return tabulationWithOptiTime(arr);
     }
 
     public static void main(String[] args) throws Exception {
