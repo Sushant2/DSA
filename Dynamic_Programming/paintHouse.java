@@ -30,8 +30,27 @@ public class paintHouse {
         return (int) Math.min(dp[n - 1][0], Math.min(dp[n - 1][2], dp[n - 1][2]));
     }
 
+    // time comp : O(n), space comp : O(1)
+    public static int tabulationSpaceOpt(long[][] arr, int n) {
+        long red = arr[0][0];
+        long blue = arr[0][1];
+        long green = arr[0][2];
+
+        for (int i = 1; i < arr.length; i++) {
+            long newRed = arr[i][0] + Math.min(green, blue);
+            long newBlue = arr[i][1] + Math.min(red, green);
+            long newGreen = arr[i][2] + Math.min(red, blue);
+
+            red = newRed;
+            blue = newBlue;
+            green = newGreen;
+        }
+        return (int) Math.min(red, Math.min(blue, green));
+    }
+
     public static int costingPaintHouse(long[][] arr) {
-        return tabulation(arr, arr.length);
+        // return tabulation(arr, arr.length);
+        return tabulationSpaceOpt(arr, arr.length);
     }
 
     public static void main(String[] args) throws Exception {
