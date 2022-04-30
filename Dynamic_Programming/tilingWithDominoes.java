@@ -4,6 +4,7 @@ import java.util.*;
 
 public class tilingWithDominoes {
 
+    // time comp : O(n), //space comp: O(n)
     private static int tabulation(int n) {
         // step1: create storage & assign meaning
         int[] dp = new int[n + 1];
@@ -24,8 +25,21 @@ public class tilingWithDominoes {
         return dp[n];
     }
 
+    public static int tabulationWithSpaceOpt(int n) {
+        int tileUpNm1 = 1;
+        int tileUpNm2 = 2;
+        int totalTileUp = 0;
+        for (int i = 3; i <= n; i++) {
+            totalTileUp = tileUpNm1 + tileUpNm2;
+            tileUpNm1 = tileUpNm2;
+            tileUpNm2 = totalTileUp;
+        }
+        return totalTileUp;
+    }
+
     public static int tileUp(int n) {
-        return tabulation(n);
+        // return tabulation(n);
+        return tabulationWithSpaceOpt(n);
     }
 
     public static void main(String[] args) {
