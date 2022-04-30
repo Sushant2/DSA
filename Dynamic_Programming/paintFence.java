@@ -31,8 +31,25 @@ public class paintFence {
         return (int) dp[n - 1];
     }
 
+    // we can see there's no need of storing total ways, we can take a variable
+    // insted, & upadte it, after every iteration ,as we just required last total
+    // count
+    // time compl : O(n), space compl : O(1)
+    public static int tabulationWithSpaceOpt(int n, int k) {
+        long same = k * 1;
+        long diff = k * (k - 1);
+        long total = same + diff;
+        for (int i = 2; i < n; i++) {
+            same = diff * 1;
+            diff = total * (k - 1);
+            total = same + diff;
+        }
+        return (int) total;
+    }
+
     public static int findWaysToPaintFence(int n, int k) {
-        return tabulation(n, k);
+        // return tabulation(n, k);
+        return tabulationWithSpaceOpt(n, k);
     }
 
     public static void main(String[] args) {
