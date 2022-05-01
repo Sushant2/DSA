@@ -28,7 +28,19 @@ public class friendsPairing {
         return ways;
     }
 
-
+    public static int tabulation(int n) {
+        // step 1 :create storage & assign meaning to cells
+        int[] dp = new int[n + 1];
+        // dp[i] will store no. of ways to do pairing for "i" friends
+        dp[1] = 1; // one friend one way
+        dp[2] = 2; // 2 friends two ways
+        // step2 : direction of problem
+        // dp[1] is small, dp[n] is large
+        // step3 : travel & solve
+        for (int i = 3; i <= n; i++)
+            dp[i] = dp[i - 1] + dp[i - 2] * (i - 1);
+        return dp[n];
+    }
 
     public static int findPairingWays(int n) {
         // return recursive(n);
