@@ -28,6 +28,7 @@ public class friendsPairing {
         return ways;
     }
 
+    // time compl : O(n), space comp : O(n)
     public static int tabulation(int n) {
         // step 1 :create storage & assign meaning to cells
         int[] dp = new int[n + 1];
@@ -42,13 +43,27 @@ public class friendsPairing {
         return dp[n];
     }
 
+    // time compl : O(n), space comp : O(1)
+    public static int tabulationSpaceOpt(int n) {
+        int solo = 1; // if only one friend, then 1 way
+        int pair = 2;// if 2 friends, then 2 ways
+        int totalWays = 0;
+        for (int i = 3; i <= n; i++) {
+            totalWays = pair + (i - 1) * solo;
+            solo = pair;
+            pair = totalWays;
+        }
+        return totalWays;
+    }
+
     public static int findPairingWays(int n) {
         // return recursive(n);
         int[] qb = new int[n + 1];
         Arrays.fill(qb, -1);
         qb[0] = qb[1] = 1;
         // return memoized(n, qb);
-        return tabulation(n);
+        // return tabulation(n);
+        return tabulationSpaceOpt(n);
     }
 
     public static void main(String[] args) throws Exception {
