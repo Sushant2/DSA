@@ -16,8 +16,28 @@ public class partitionIntoSubsets {
         return recursive(n - 1, k - 1) + recursive(n - 1, k) * k;
     }
 
+    public static int memoized(int n, int k, int[][] qb) {
+        // base case
+        if (n == 0 || k == 0 || n < k)
+            return 0;
+        if (n == k || k == 1)
+            return 1;
+        if (qb[n][k] != -1)
+            return qb[n][k];
+
+        return qb[n][k] = memoized(n - 1, k - 1, qb) + memoized(n - 1, k, qb) * k;
+    }
+
     public static int findWays(int n, int k) {
-        return recursive(n, k);
+        // return recursive(n, k);
+        int[][] qb = new int[n + 1][k + 1];
+        for (int[] x : qb)
+            Arrays.fill(x, -1);
+        for (int i = 0; i < qb.length; i++)
+            qb[i][0] = 0;
+        for (int j = 0; j < qb[0].length; j++)
+            qb[0][j] = 0;
+        return memoized(n, k, qb);
     }
 
     public static void main(String[] args) throws Exception {
