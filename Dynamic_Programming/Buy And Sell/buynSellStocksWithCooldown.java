@@ -30,12 +30,32 @@ public class buynSellStocksWithCooldown {
                     0 + memoized(idx + 1, 0, prices, qb));
     }
 
+    public static int tabulation(int[] prices) {
+        // step 1: create storage & assign meaning to cells
+        int[][] dp = new int[2][prices.length + 2];
+        // dp[1][idx] means for day idx, what will be the max profit if we're buying the
+        // stocks
+        // step 2: direction of problem
+        // base case if small problem , so we'll iterate reversely
+        // step 3: travel & solve
+        for (int idx = prices.length - 1; idx >= 0; idx--) {
+            for (int buy = 0; buy <= 1; buy++) {
+                if (buy == 1)
+                    dp[buy][idx] = Math.max(-prices[idx] + dp[0][idx + 1], 0 + dp[1][idx + 1]);
+                else
+                    dp[buy][idx] = Math.max(prices[idx] + dp[1][idx + 2], 0 + dp[0][idx + 1]);
+            }
+        }
+        return dp[1][0];
+    }
+
     public static int findProfit(int[] prices) {
         // return recursive(0, 1, prices);
         int[][] qb = new int[2][prices.length + 1];
         for (int[] x : qb)
             Arrays.fill(x, -1);
-        return memoized(0, 1, prices, qb);
+        // return memoized(0, 1, prices, qb);
+        return tabulation(prices);
     }
 
     public static void main(String[] args) throws Exception {
