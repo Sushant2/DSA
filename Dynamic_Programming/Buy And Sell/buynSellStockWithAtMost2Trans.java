@@ -3,6 +3,7 @@ import java.io.*;
 
 public class buynSellStockWithAtMost2Trans {
 
+    // time compl :O(2^n), space comp : O(n)
     public static int recursive(int idx, int buy, int[] prices, int cap) {
         // base case
         if (idx == prices.length || cap == 0)
@@ -16,6 +17,7 @@ public class buynSellStockWithAtMost2Trans {
                     0 + recursive(idx + 1, 0, prices, cap));
     }
 
+    // time comp : O(n*2*3), space comp : O(n)
     public static int memoization(int idx, int buy, int[] prices, int cap, int[][][] qb) {
         // base case
         if (idx == prices.length || cap == 0)
@@ -33,6 +35,7 @@ public class buynSellStockWithAtMost2Trans {
                     0 + memoization(idx + 1, 0, prices, cap, qb));
     }
 
+    // time comp : O(n*2*3), space comp : O(n)
     public static int tabulation(int[] prices) {
         // step1: create storage & assign meaning to cells
         int[][][] dp = new int[prices.length + 1][2][3];
@@ -72,13 +75,34 @@ public class buynSellStockWithAtMost2Trans {
         return tabulation(prices);
     }
 
+    // ! USING 2D DP ARRAY - recursion, memoization, tabulation, space optimization
+
+    public static int recursive1(int idx, int tn, int[] prices) {
+        // base case
+        if (idx == prices.length || tn == 4)
+            return 0;
+
+        // if transaction number is even then buy
+        if (tn % 2 == 0)
+            return Math.max(-prices[idx] + recursive1(idx + 1, tn + 1, prices), 0 + recursive1(idx + 1, tn, prices));
+        // if transaction number is odd then buy
+        else
+            return Math.max(prices[idx] + recursive1(idx + 1, tn + 1, prices), 0 + recursive1(idx + 1, tn, prices));
+    }
+
+    public static int findProfit2(int[] prices) {
+        // idx, transaction number
+        return recursive1(0, 0, prices);
+    }
+
     public static void main(String[] args) throws Exception {
         Scanner scn = new Scanner(System.in);
         int n = scn.nextInt();
         int[] prices = new int[n];
         for (int i = 0; i < n; i++)
             prices[i] = scn.nextInt();
-        int maxProfit = findProfit(prices);
+        // int maxProfit = findProfit(prices);
+        int maxProfit = findProfit2(prices);
         System.out.println(maxProfit);
     }
 }
