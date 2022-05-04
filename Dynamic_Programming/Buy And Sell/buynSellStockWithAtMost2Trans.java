@@ -90,9 +90,31 @@ public class buynSellStockWithAtMost2Trans {
             return Math.max(prices[idx] + recursive1(idx + 1, tn + 1, prices), 0 + recursive1(idx + 1, tn, prices));
     }
 
+    public static int memoization2(int idx, int tn, int[] prices, int[][] qb) {
+        // base case
+        if (idx == prices.length || tn == 4)
+            return 0;
+
+        if (qb[idx][tn] != -1)
+            return qb[idx][tn];
+
+        // if transaction number is even then buy
+        if (tn % 2 == 0)
+            return qb[idx][tn] = Math.max(-prices[idx] + memoization2(idx + 1, tn + 1, prices, qb),
+                    0 + memoization2(idx + 1, tn, prices, qb));
+        // if transaction number is odd then buy
+        else
+            return qb[idx][tn] = Math.max(prices[idx] + memoization2(idx + 1, tn + 1, prices, qb),
+                    0 + memoization2(idx + 1, tn, prices, qb));
+    }
+
     public static int findProfit2(int[] prices) {
         // idx, transaction number
-        return recursive1(0, 0, prices);
+        // return recursive1(0, 0, prices);
+        int[][] qb = new int[prices.length][4];
+        for (int[] x : qb)
+            Arrays.fill(x, -1);
+        return memoization2(0, 0, prices, qb);
     }
 
     public static void main(String[] args) throws Exception {
