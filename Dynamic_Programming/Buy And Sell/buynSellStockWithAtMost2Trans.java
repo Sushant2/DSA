@@ -77,6 +77,7 @@ public class buynSellStockWithAtMost2Trans {
 
     // ! USING 2D DP ARRAY - recursion, memoization, tabulation, space optimization
 
+    // time comp : O(2^n), space comp : O(n)
     public static int recursive2(int idx, int tn, int[] prices) {
         // base case
         if (idx == prices.length || tn == 4)
@@ -90,6 +91,7 @@ public class buynSellStockWithAtMost2Trans {
             return Math.max(prices[idx] + recursive2(idx + 1, tn + 1, prices), 0 + recursive2(idx + 1, tn, prices));
     }
 
+    // time comp : O(n*4), space comp : O(n*4)
     public static int memoization2(int idx, int tn, int[] prices, int[][] qb) {
         // base case
         if (idx == prices.length || tn == 4)
@@ -108,6 +110,7 @@ public class buynSellStockWithAtMost2Trans {
                     0 + memoization2(idx + 1, tn, prices, qb));
     }
 
+    // time comp : O(n*4), space comp : O(n*4)
     public static int tabulation2(int[] prices) {
         int[][] dp = new int[prices.length + 1][5];
         for (int idx = prices.length - 1; idx >= 0; idx--) {
