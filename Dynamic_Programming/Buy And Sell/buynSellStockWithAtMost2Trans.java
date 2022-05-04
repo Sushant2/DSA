@@ -77,17 +77,17 @@ public class buynSellStockWithAtMost2Trans {
 
     // ! USING 2D DP ARRAY - recursion, memoization, tabulation, space optimization
 
-    public static int recursive1(int idx, int tn, int[] prices) {
+    public static int recursive2(int idx, int tn, int[] prices) {
         // base case
         if (idx == prices.length || tn == 4)
             return 0;
 
         // if transaction number is even then buy
         if (tn % 2 == 0)
-            return Math.max(-prices[idx] + recursive1(idx + 1, tn + 1, prices), 0 + recursive1(idx + 1, tn, prices));
+            return Math.max(-prices[idx] + recursive2(idx + 1, tn + 1, prices), 0 + recursive2(idx + 1, tn, prices));
         // if transaction number is odd then buy
         else
-            return Math.max(prices[idx] + recursive1(idx + 1, tn + 1, prices), 0 + recursive1(idx + 1, tn, prices));
+            return Math.max(prices[idx] + recursive2(idx + 1, tn + 1, prices), 0 + recursive2(idx + 1, tn, prices));
     }
 
     public static int memoization2(int idx, int tn, int[] prices, int[][] qb) {
@@ -108,13 +108,28 @@ public class buynSellStockWithAtMost2Trans {
                     0 + memoization2(idx + 1, tn, prices, qb));
     }
 
+    public static int tabulation2(int[] prices) {
+        int[][] dp = new int[prices.length + 1][5];
+        for (int idx = prices.length - 1; idx >= 0; idx--) {
+            for (int tn = 3; tn >= 0; tn--) {
+                if (tn % 2 == 0) {
+                    dp[idx][tn] = Math.max(-prices[idx] + dp[idx + 1][tn + 1], 0 + dp[idx + 1][tn]);
+                } else {
+                    dp[idx][tn] = Math.max(prices[idx] + dp[idx + 1][tn + 1], 0 + dp[idx + 1][tn]);
+                }
+            }
+        }
+        return dp[0][0];
+    }
+
     public static int findProfit2(int[] prices) {
         // idx, transaction number
-        // return recursive1(0, 0, prices);
+        // return recursive2(0, 0, prices);
         int[][] qb = new int[prices.length][4];
         for (int[] x : qb)
             Arrays.fill(x, -1);
-        return memoization2(0, 0, prices, qb);
+        // return memoization2(0, 0, prices, qb);
+        return tabulation2(prices);
     }
 
     public static void main(String[] args) throws Exception {
