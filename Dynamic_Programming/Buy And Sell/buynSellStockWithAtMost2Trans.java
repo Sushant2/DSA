@@ -33,6 +33,30 @@ public class buynSellStockWithAtMost2Trans {
                     0 + memoization(idx + 1, 0, prices, cap, qb));
     }
 
+    public static int tabulation(int[] prices) {
+        // step1: create storage & assign meaning to cells
+        int[][][] dp = new int[prices.length + 1][2][3];
+        // dp[idx][1][2] means what is the profit at day "idx" when we buying & our
+        // transaction is yet to complete
+        // initialization is base case of memoization, but no need here, by default
+        // value is 0
+
+        // direction of problem : choti problem base case m
+        // we'll iterate buy & cap in reverse of memoization
+        // step 3 : travel & solve
+        for (int idx = prices.length - 1; idx >= 0; idx--) {
+            for (int buy = 0; buy <= 1; buy++) {
+                for (int cap = 1; cap <= 2; cap++) {
+                    if (buy == 1)
+                        dp[idx][buy][cap] = Math.max(-prices[idx] + dp[idx + 1][0][cap], 0 + dp[idx + 1][1][cap]);
+                    else
+                        dp[idx][buy][cap] = Math.max(prices[idx] + dp[idx + 1][1][cap - 1], 0 + dp[idx + 1][0][cap]);
+                }
+            }
+        }
+        return dp[0][1][2];
+    }
+
     public static int findProfit(int[] prices) {
         // idx, buytrue, prices, cap
         // return recursive(0, 1, prices, 2);
@@ -44,7 +68,8 @@ public class buynSellStockWithAtMost2Trans {
             for (int[] y : x)
                 Arrays.fill(y, -1);
         }
-        return memoization(0, 1, prices, 2, qb);
+        // return memoization(0, 1, prices, 2, qb);
+        return tabulation(prices);
     }
 
     public static void main(String[] args) throws Exception {
