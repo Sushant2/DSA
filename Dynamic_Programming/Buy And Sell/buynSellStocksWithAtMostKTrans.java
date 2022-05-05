@@ -72,8 +72,25 @@ public class buynSellStocksWithAtMostKTrans {
                     0 + recursive(idx + 1, transNo, k, prices));
     }
 
+    public static int memoized2(int idx, int transNo, int k, int[] prices, int[][] qb) {
+        if (idx == prices.length || transNo == k)
+            return 0;
+        if (qb[idx][transNo] != -1)
+            return qb[idx][transNo];
+        if (transNo % 2 == 0)
+            return qb[idx][transNo] = Math.max(-prices[idx] + memoized2(idx + 1, transNo + 1, k, prices, qb),
+                    0 + memoized2(idx + 1, transNo, k, prices, qb));
+        else
+            return qb[idx][transNo] = Math.max(prices[idx] + memoized2(idx + 1, transNo + 1, k, prices, qb),
+                    0 + memoized2(idx + 1, transNo, k, prices, qb));
+    }
+
     public static int findProfit1(int[] prices, int k) {
-        return recursive2(0, 0, 2 * k, prices);
+        // return recursive2(0, 0, 2 * k, prices);
+        int[][] qb = new int[prices.length + 1][2 * k + 1];
+        for (int[] x : qb)
+            Arrays.fill(x, -1);
+        return memoized2(0, 0, 2 * k, prices, qb);
     }
 
     public static void main(String[] args) throws Exception {
