@@ -125,6 +125,45 @@ public class buynSellStockWithAtMost2Trans {
         return dp[0][0];
     }
 
+    public static int mostOptimized(int[] prices) {
+        // approach : max sum of best transaction on the left & best transaction on the
+        // right, may or maynot including that day price
+
+        int mpist = 0; // max profit if sold today
+        int leastsf = prices[0]; // least so far
+        int[] dpl = new int[prices.length]; // dp on the left -> max profit if sold uptotoday
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] < leastsf)
+                leastsf = prices[i];
+            mpist = prices[i] - leastsf;
+            if (mpist > dpl[i - 1])
+                dpl[i] = mpist;
+            else
+                dpl[i] = dpl[i - 1];
+        }
+
+        int mpibt = 0;// max profit if bought today
+        int maxat = prices[prices.length - 1];// max after today
+        int[] dpr = new int[prices.length]; // dp on the right, max Profit if bought till today
+        for (int i = prices.length - 2; i >= 0; i--) {
+            if (prices[i] > maxat)
+                maxat = prices[i];
+            mpibt = maxat - prices[i];
+            if (mpibt > dpr[i + 1])
+                dpr[i] = mpibt;
+            else
+                dpr[i] = dpr[i + 1];
+        }
+
+        int op = 0; // overall profit
+        for (int i = 0; i < prices.length; i++) {
+            if (dpl[i] + dpr[i] > op)
+                op = dpl[i] + dpr[i];
+        }
+
+        return op;
+    }
+
     public static int findProfit2(int[] prices) {
         // idx, transaction number
         // return recursive2(0, 0, prices);
@@ -132,7 +171,8 @@ public class buynSellStockWithAtMost2Trans {
         for (int[] x : qb)
             Arrays.fill(x, -1);
         // return memoization2(0, 0, prices, qb);
-        return tabulation2(prices);
+        // return tabulation2(prices);
+        return mostOptimized(prices);
     }
 
     public static void main(String[] args) throws Exception {
