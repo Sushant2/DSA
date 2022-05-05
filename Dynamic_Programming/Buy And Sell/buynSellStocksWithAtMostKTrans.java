@@ -59,6 +59,23 @@ public class buynSellStocksWithAtMostKTrans {
         return tabulation(k, prices);
     }
 
+    // ! we can also solve this using 2D dp array
+    // parameters as idx, & transaction number : 2*k
+    public static int recursive2(int idx, int transNo, int k, int[] prices) {
+        if (idx == prices.length || transNo == k)
+            return 0;
+        if (transNo % 2 == 0)
+            return Math.max(-prices[idx] + recursive(idx + 1, transNo + 1, k, prices),
+                    0 + recursive(idx + 1, transNo, k, prices));
+        else
+            return Math.max(prices[idx] + recursive(idx + 1, transNo + 1, k, prices),
+                    0 + recursive(idx + 1, transNo, k, prices));
+    }
+
+    public static int findProfit1(int[] prices, int k) {
+        return recursive2(0, 0, 2 * k, prices);
+    }
+
     public static void main(String[] args) throws Exception {
         Scanner scn = new Scanner(System.in);
         int n = scn.nextInt();
@@ -66,7 +83,9 @@ public class buynSellStocksWithAtMostKTrans {
         for (int i = 0; i < n; i++)
             arr[i] = scn.nextInt();
         int k = scn.nextInt();
-        int maxProfit = findProfit(arr, k);
+        // int maxProfit = findProfit(arr, k);
+        int maxProfit = findProfit1(arr, k);
         System.out.println(maxProfit);
+        scn.close();
     }
 }
