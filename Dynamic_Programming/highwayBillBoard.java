@@ -24,6 +24,8 @@ public class highwayBillBoard {
         return ans;
     }
 
+    // second approach - based on no of miles
+    // time compl : O(m), space comp : O(m)
     public static int findProfit2(int m, int[] x, int[] rev, int t) {
         // hashmap to store, revenue of that ith board, with it's mile
         HashMap<Integer, Integer> map = new HashMap<>();
