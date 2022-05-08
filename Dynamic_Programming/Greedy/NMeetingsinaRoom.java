@@ -1,6 +1,11 @@
 import java.util.*;
 import java.io.*;
 
+//! TIME COMPLEXITY : 
+//O(n) to fill DS, // O(nlogn) to sort the DS, // O(n) to reiterate & find maximum meetings
+// time comp : O(nlogn)
+// space comp : O(n) for DS
+
 public class NMeetingsinaRoom {
 
     public static class meetings {
