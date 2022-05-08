@@ -19,6 +19,27 @@ public class minimumPlatform {
         return result;
     }
 
+    // ! EFFICIENT : time compl :O(nlogn), space compl : O(1)
+    public static int findMaxPlatform1(int[] arr, int[] dep, int n) {
+        // using sorting & 2 pointers
+        Arrays.sort(arr);
+        Arrays.sort(dep);
+        int plat_needed = 1, result = 1;
+        int i = 1, j = 0;
+        while (i < n && j < n) {
+            if (arr[i] <= dep[j]) {
+                plat_needed++;
+                i++;
+            } else {
+                plat_needed--;
+                j++;
+            }
+            if (plat_needed > result)
+                result = plat_needed;
+        }
+        return result;
+    }
+
     public static void main(String[] args) throws Exception {
         Scanner scn = new Scanner(System.in);
         int n = scn.nextInt();
@@ -28,7 +49,9 @@ public class minimumPlatform {
         int[] dep = new int[n];
         for (int i = 0; i < n; i++)
             dep[i] = scn.nextInt();
-        int maxPlatform = findMaxPlatform(arr, dep, n);
+        // int maxPlatform = findMaxPlatform(arr, dep, n);
+        int maxPlatform = findMaxPlatform1(arr, dep, n);
         System.out.println(maxPlatform);
+        scn.close();
     }
 }
