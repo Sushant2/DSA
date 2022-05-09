@@ -3,6 +3,7 @@ import java.io.*;
 
 public class minimumCoins {
 
+    // !TIME COMPL : O(V), SPACE COMPL : O(1)
     public static int[] findMinCoins(int[] coins, int n, int V) {
         ArrayList<Integer> ans = new ArrayList<>();
         for (int i = n - 1; i >= 0; i--) {
