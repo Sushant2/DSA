@@ -1,6 +1,8 @@
 import java.util.*;
 import java.io.*;
 
+//! TIME COMPL : O(nlogn) + SPACE COMPL : O(m*n)
+//nlognn for sorting , & m*n - iterating n jobs & for each job iterating from last deadline
 public class jobSequencingProblem {
 
     public static class Job {
