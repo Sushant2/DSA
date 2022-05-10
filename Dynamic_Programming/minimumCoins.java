@@ -22,7 +22,8 @@ public class minimumCoins {
         return Math.min(notTake, take);
     }
 
-    // time compl : >>O(2^n) or exponential, space compl : >>O(n) or O(target)
+    // time compl : O(n*target) or space compl : (n*target) + O(n) for recursion
+    // call stack
     public static int memoization(int[] arr, int ind, int target, int[][] qb) {
         // base condition
         if (ind == 0) {
@@ -35,10 +36,10 @@ public class minimumCoins {
             return qb[ind][target];
 
         // if not taking then count = 0, & if taking that coin, adding 1 to the count
-        int notTake = 0 + recursive(arr, ind - 1, target);
+        int notTake = 0 + memoization(arr, ind - 1, target, qb);
         int take = (int) Math.pow(10, 9);
         if (arr[ind] <= target)
-            take = 1 + recursive(arr, ind, target - arr[ind]);
+            take = 1 + memoization(arr, ind, target - arr[ind], qb);
 
         return qb[ind][target] = Math.min(notTake, take);
     }
