@@ -44,12 +44,42 @@ public class minimumCoins {
         return qb[ind][target] = Math.min(notTake, take);
     }
 
+    // time compl : O(n*target) or space compl : (n*target)
+    public static int tabulation(int[] arr, int target) {
+        // step1: base case to initialization
+        // step2: parameters that are changing :ind, target
+        // write in opposite fashion of recursion
+        // step3: copy the recurrence
+        int n = arr.length;
+        int[][] dp = new int[n][target + 1];
+        for (int tar = 0; tar <= target; tar++) {
+            if (tar % arr[0] == 0)
+                dp[0][tar] = tar / arr[0];
+            else
+                dp[0][tar] = (int) Math.pow(10, 9);
+        }
+        for (int ind = 1; ind < n; ind++) {
+            for (int tar = 0; tar <= target; tar++) {
+                int notTake = 0 + dp[ind - 1][tar];
+                int take = (int) Math.pow(10, 9);
+                if (arr[ind] <= tar)
+                    take = 1 + dp[ind][tar - arr[ind]];
+                dp[ind][tar] = Math.min(take, notTake);
+            }
+        }
+        int ans = dp[n - 1][target];
+        if (ans >= (int) Math.pow(10, 9))
+            return -1;
+        return ans;
+    }
+
     public static int findMinCoins(int[] arr, int n, int target) {
         // return recursive(arr, n - 1, target);
         int[][] qb = new int[n][target + 1];
         for (int[] x : qb)
             Arrays.fill(x, -1);
-        return memoization(arr, n - 1, target, qb);
+        // return memoization(arr, n - 1, target, qb);
+        return tabulation(arr, target);
     }
 
     public static void main(String[] args) throws Exception {
