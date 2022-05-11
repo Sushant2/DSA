@@ -17,6 +17,16 @@ public class dfsTraversal {
         }
     }
 
+    public static ArrayList<Integer> getDFS2(int V, ArrayList<ArrayList<Integer>> adj) {
+        ArrayList<Integer> dfs = new ArrayList<>();
+        boolean[] vis = new boolean[V + 1];
+        for (int i = 1; i <= V; i++) {
+            if (vis[i] == false)
+                dfs(i, vis, adj, dfs);
+        }
+        return dfs;
+    }
+
     // if a graph having only one component
     public static ArrayList<Integer> getDFS(int V, ArrayList<ArrayList<Integer>> adj) {
         ArrayList<Integer> dfs = new ArrayList<>();
@@ -38,7 +48,8 @@ public class dfsTraversal {
         addEdge(adj, 3, 5);
         addEdge(adj, 5, 7);
         addEdge(adj, 4, 6);
-        ArrayList<Integer> dfsTraversal = getDFS(V, adj);
+        // ArrayList<Integer> dfsTraversal = getDFS(V, adj);
+        ArrayList<Integer> dfsTraversal = getDFS2(V, adj);
         System.out.println(dfsTraversal);
     }
 }
