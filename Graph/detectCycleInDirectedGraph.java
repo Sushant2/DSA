@@ -24,6 +24,8 @@ public class detectCycleInDirectedGraph {
     }
 
     public static boolean detectCycle(ArrayList<ArrayList<Integer>> adj, int V) {
+        // extra dfsVis array to keeping track if nodes are visited in the current
+        // movement, then only i can say that they did have a cycle
         int[] vis = new int[V + 1];
         int[] dfsVis = new int[V + 1];
         for (int i = 1; i <= V; i++) {
