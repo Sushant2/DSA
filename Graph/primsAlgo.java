@@ -19,6 +19,12 @@ public class primsAlgo {
         adj.get(v).add(new Pair(u, w));
     }
 
+    public static class PairWeightComparator implements Comparator<Pair> {
+        public int compare(Pair p1, Pair p2) {
+            return p1.weight - p2.weight;
+        }
+    }
+
     // BRUTE FORCE IMPLEM... - time complexity - O(V^2) , space complexity - O(V)
     public static int[] getMST(ArrayList<ArrayList<Pair>> adj, int V) {
         int[] key = new int[V + 1]; // holds weight of MST(initialized to INT_MAX except index 0 which is set with
@@ -55,23 +61,60 @@ public class primsAlgo {
         return parent;
     }
 
+    // EFFECIENT IMPLEMENTATION - time comp - O(VlogV), space O(V)
+    public static int[] getMSTEfficient(ArrayList<ArrayList<Pair>> adj, int V) {
+        int[] key = new int[V];
+        int[] parent = new int[V];
+        boolean[] MST = new boolean[V];
+        Arrays.fill(key, Integer.MAX_VALUE);
+        key[0] = 0;
+        parent[0] = -1;
+        PriorityQueue<Pair> pq = new PriorityQueue<>(new PairWeightComparator());
+        pq.add(new Pair(0, key[0]));
+        while (!pq.isEmpty()) {
+            int u = pq.remove().dest;
+            MST[u] = true;
+            for (Pair it : adj.get(u)) {
+                if (MST[it.dest] == false && it.weight < key[it.dest]) {
+                    parent[it.dest] = u;
+                    key[it.dest] = it.weight;
+                    pq.add(new Pair(it.dest, key[it.dest]));
+                }
+            }
+        }
+        return key;
+    }
+
     public static void main(String[] args) throws Exception {
-        int V = 6;
+        // int V = 6;
+        int V = 5;
         ArrayList<ArrayList<Pair>> adj = new ArrayList<ArrayList<Pair>>();
         for (int i = 0; i < V + 1; i++)
             adj.add(new ArrayList<>());
 
-        addEdgeWeight(adj, 4, 5, 9);
-        addEdgeWeight(adj, 3, 4, 5);
-        addEdgeWeight(adj, 6, 3, 8);
-        addEdgeWeight(adj, 6, 2, 7);
-        addEdgeWeight(adj, 2, 1, 2);
-        addEdgeWeight(adj, 1, 5, 4);
-        addEdgeWeight(adj, 1, 4, 1);
-        addEdgeWeight(adj, 2, 4, 3);
-        addEdgeWeight(adj, 2, 3, 3);
-        int[] parent = getMST(adj, V);
-        for (int i = 2; i < parent.length; i++)
-            System.out.println(parent[i] + "-" + i);
+        // addEdgeWeight(adj, 4, 5, 9);
+        // addEdgeWeight(adj, 3, 4, 5);
+        // addEdgeWeight(adj, 6, 3, 8);
+        // addEdgeWeight(adj, 6, 2, 7);
+        // addEdgeWeight(adj, 2, 1, 2);
+        // addEdgeWeight(adj, 1, 5, 4);
+        // addEdgeWeight(adj, 1, 4, 1);
+        // addEdgeWeight(adj, 2, 4, 3);
+        // addEdgeWeight(adj, 2, 3, 3);
+
+        addEdgeWeight(adj, 0, 1, 2);
+        addEdgeWeight(adj, 1, 2, 3);
+        addEdgeWeight(adj, 0, 3, 6);
+        addEdgeWeight(adj, 1, 3, 8);
+        addEdgeWeight(adj, 1, 4, 5);
+        addEdgeWeight(adj, 2, 4, 7);
+
+        // int[] parent = getMST(adj, V);
+        int[] key = getMSTEfficient(adj, V);
+        int sum = 0;
+        for (int x : key)
+            sum += x;
+
+        System.out.println(sum);
     }
 }
