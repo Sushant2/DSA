@@ -19,6 +19,7 @@ public class primsAlgo {
         adj.get(v).add(new Pair(u, w));
     }
 
+    // BRUTE FORCE IMPLEM... - time complexity - O(V^2) , space complexity - O(V)
     public static int[] getMST(ArrayList<ArrayList<Pair>> adj, int V) {
         int[] key = new int[V + 1]; // holds weight of MST(initialized to INT_MAX except index 0 which is set with
                                     // value 0)
