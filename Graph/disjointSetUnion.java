@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 //! DISJOINT SET USING PATH COMPRESSION & UNION BY RANKING
+//? time compl : O(4alpha) ~ O(4) or constant to perform union operation
 public class disjointSetUnion {
 
     public static int[] parent;
