@@ -3,6 +3,9 @@ import java.io.*;
 
 public class FindArticulationPointInGraph {
 
+    // time compl : O(V+E), space compl : O(V+E) + O(V) + O(V) +O(V) + O(V)
+    // space compl : adjc list + vis array + TIN array + low array + auxiliary space
+    // for recursion
     public static void addEdge(ArrayList<ArrayList<Integer>> adj, int u, int v) {
         adj.get(u).add(v);
         adj.get(v).add(u);
