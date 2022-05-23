@@ -18,6 +18,6 @@
   - [x] Generic Tree
   - [x] Binary Tree
   - [x] Binary Search Tree
-- [ ] Graphs
+- [x] Graphs
 - [x] Hashmap And Heap
 - [x] Dynamic Programming And Greedy
