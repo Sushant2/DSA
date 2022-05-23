@@ -21,3 +21,9 @@
 - [x] Graphs
 - [x] Hashmap And Heap
 - [x] Dynamic Programming And Greedy
+
+<br>
+
+> ## Level-2
+
+- [ ] Trees
