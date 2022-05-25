@@ -1,4 +1,4 @@
-//TODO - Leetcode - 144
+//TODO - Leetcode - 144 - Preorder Traversal
 // [https://leetcode.com/problems/binary-tree-preorder-traversal/]
 
 //1. we can do that using DFS - didn't write
@@ -25,7 +25,7 @@ class Solution {
     }
 }
 
-//3. MORRIS Traversal
+// 3. MORRIS Traversal
 // In O(1) space
 
 class Solution {
