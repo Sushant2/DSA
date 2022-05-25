@@ -1,5 +1,43 @@
+//TODO - GFG - Diagonal Traversal of binary tree
+// [https://practice.geeksforgeeks.org/problems/diagonal-traversal-of-binary-tree/1]
 
-//! this code is BFS - level order traversal but doesn't work cos GFG one requires in DFS only
+class Tree {
+    static int maxD = 0;
+
+    public void getDiagonals(Node root, int currDiagonal, HashMap<Integer, ArrayList<Integer>> map) {
+        // base case
+        if (root == null)
+            return;
+        if (currDiagonal > maxD)
+            maxD = currDiagonal;
+        if (map.containsKey(currDiagonal) == false) {
+            map.put(currDiagonal, new ArrayList<>());
+            map.get(currDiagonal).add(root.data);
+        } else {
+            map.get(currDiagonal).add(root.data);
+        }
+        getDiagonals(root.left, currDiagonal + 1, map);
+        getDiagonals(root.right, currDiagonal, map);
+    }
+
+    public ArrayList<Integer> diagonal(Node root) {
+        // add your code here.
+        ArrayList<Integer> ans = new ArrayList<>();
+        HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+        getDiagonals(root, 0, map);
+        for (int i = 0; i <= maxD; i++) {
+            ArrayList<Integer> list = map.get(i);
+            if (list == null)
+                continue;
+            for (Integer x : list)
+                ans.add(x);
+        }
+        return ans;
+    }
+}
+
+// ! this code is BFS - level order traversal but doesn't work cos GFG one
+// requires in DFS only
 class Tree {
     public static class Pair {
         Node node;
