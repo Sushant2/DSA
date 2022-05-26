@@ -68,7 +68,7 @@ class Solution {
 }
 
 
-//we can use arrayList instead of priorrity queue, it's just that we'have to use sorting at the end for width
+//we can use "arrayList" instead of priorrity queue, it's just that we'have to use sorting at the end for width
 //time complexity is same as of above - no change
 
 class Solution {
