@@ -29,44 +29,82 @@ class Solution {
     }
 
     // using MORRIS traversal
-class Solution {
-    // returns the inorder successor of the Node x in BST (rooted at 'root')
-    public Node inorderSuccessor(Node root, Node x) {
-        // add code here.
-        // morris traversal
-        Node curr = root;
-        Node succ = null;
-        Boolean flag = false;
-        while (curr != null) {
-            if (curr.left == null) {
-                if (flag == true) {
-                    succ = curr;
-                    break;
-                }
-                if (curr == x)
-                    flag = true;
-                curr = curr.right;
-            } else {
-                Node iop = curr.left;
-                while (iop.right != null && iop.right != curr) {
-                    iop = iop.right;
-                }
-                if (iop.right == null) {
-                    iop.right = curr;
-                    curr = curr.left;
-                } else {
+    class Solution {
+        // returns the inorder successor of the Node x in BST (rooted at 'root')
+        public Node inorderSuccessor(Node root, Node x) {
+            // add code here.
+            // morris traversal
+            Node curr = root;
+            Node succ = null;
+            Boolean flag = false;
+            while (curr != null) {
+                if (curr.left == null) {
                     if (flag == true) {
                         succ = curr;
                         break;
                     }
                     if (curr == x)
                         flag = true;
+                    curr = curr.right;
+                } else {
+                    Node iop = curr.left;
+                    while (iop.right != null && iop.right != curr) {
+                        iop = iop.right;
+                    }
+                    if (iop.right == null) {
+                        iop.right = curr;
+                        curr = curr.left;
+                    } else {
+                        if (flag == true) {
+                            succ = curr;
+                            break;
+                        }
+                        if (curr == x)
+                            flag = true;
+                        iop.right = null;
+                        curr = curr.right;
+                    }
+                }
+
+            }
+            return succ;
+        }
+    }
+
+    // using MORRIS Traversal - pre & curr node
+class Solution
+{
+    // returns the inorder successor of the Node x in BST (rooted at 'root')
+	public Node inorderSuccessor(Node root,Node x)
+        {
+        //add code here.
+        Node curr = root;
+        Node prev = null;
+        Node succ = null;
+        while(curr!=null){
+            if(curr.left==null){
+                if(prev ==x)
+                succ = curr;
+                
+                prev = curr;
+                curr = curr.right;
+            }else{
+                Node iop = curr.left;
+                while(iop.right!=null && iop.right!=curr){
+                    iop = iop.right;
+                }
+                if(iop.right==null){
+                    iop.right = curr;
+                    curr = curr.left;
+                }else{
+                    if(prev==x)
+                    succ = curr;
+                prev = curr;
                     iop.right = null;
                     curr = curr.right;
                 }
             }
-
         }
         return succ;
-    }
+        }
 }
