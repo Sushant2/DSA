@@ -7,12 +7,12 @@
 - [x] Functions And Arrays
 - [x] 2D Arrays
 - [x] String, Dynamic String and Dynamic Array
-- [ ] Recursion
+- [x] Recursion
   - [x] Intro
   - [x] inArrays
-  - [ ] getArraylist
-  - [ ] printArraylist
-  - [ ] Backtracking
+  - [x] getArraylist
+  - [x] printArraylist
+  - [x] Backtracking
 - [x] Linked list
 - [x] Stack & Queue
 - [x] Trees
