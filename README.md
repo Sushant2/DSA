@@ -6,7 +6,7 @@
 - [x] Patterns
 - [x] Functions And Arrays
 - [x] 2D Arrays
-- [ ] String, Dynamic String and Dynamic Array
+- [x] String, Dynamic String and Dynamic Array
 - [ ] Recursion
   - [x] Intro
   - [x] inArrays
