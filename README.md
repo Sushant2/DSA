@@ -5,7 +5,7 @@
 - [x] Getting Started
 - [x] Patterns
 - [x] Functions And Arrays
-- [ ] 2D Arrays
+- [x] 2D Arrays
 - [ ] String, Dynamic String and Dynamic Array
 - [ ] Recursion
   - [x] Intro
